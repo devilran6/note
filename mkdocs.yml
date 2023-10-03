@@ -36,8 +36,6 @@ markdown_extensions:
   - attr_list
   - md_in_html
 
-
-
 extra:
   generator: false  #删除页脚显示“使用 MkDocs 材料制造”
   social:
@@ -57,6 +55,18 @@ nav:
   - ACM:
     - Knowledge:
       - DP: ACM/Knowledge/DP/换根dp.md
+    - CF:
+      - div2_892: ACM/CF/div2_892.md
+      - div2_893: ACM/CF/div2_893.md
+      - div2_899: ACM/CF/div2_899.md
+      - edu_155: ACM/CF/edu_155.md
+    - 模拟vp:
+      - CCPC 2022 mianyang: ACM/模拟vp/ccpc2022mianyang.md
+      - ICPC 2023 网络赛第二场: ACM/模拟vp/icpc网络赛第二场.md
+    - 专题训练:
+      - Math:
+        - CF数学: ACM/专题训练/Math/CF数学.md
+        - LG数学: ACM/专题训练/Math/LG数学.md
   - ML:
     - Pytorch的基本用法: ML/Pytorch.md
     - 基本模型:
@@ -67,7 +77,7 @@ nav:
   - Linux:
     - Linux: Linux/Linux.md
   - OS:
-    - OS: os.md
+    - OS: OS/os.md
   - CTF:
     - CTF: CTF/CTF.md
   - 关于:
