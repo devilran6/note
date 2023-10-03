@@ -56,13 +56,19 @@ nav:
   - Home: Home.md
   - ACM:
     - Knowledge:
-      - DP: ACM\Knowledge\DP\换根dp.md
+      - DP: ACM/Knowledge/DP/换根dp.md
   - ML:
-    - Pytorch的基本用法: ML\Pytorch.md
+    - Pytorch的基本用法: ML/Pytorch.md
     - 基本模型:
-      - 线性回归: ML\基本模型\linear_model.md
-      - CNN: ML\基本模型\cnn.md
-      - RNN: ML\基本模型\rnn.md
-      - Diffusion: ML\基本模型\diffusion.md
+      - 线性回归: ML/基本模型/linear_model.md
+      - CNN: ML/基本模型/cnn.md
+      - RNN: ML/基本模型/rnn.md
+      - Diffusion: ML/基本模型/diffusion.md
+  - Linux:
+    - Linux: Linux/Linux.md
+  - OS:
+    - OS: os.md
+  - CTF:
+    - CTF: CTF/CTF.md
   - 关于:
     - 个人履历: about/devilran.md
