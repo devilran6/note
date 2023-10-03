@@ -4,4 +4,6 @@ theme:
   name: material
   features:
     - navigation.tabs
-
+  font:
+    text: Fira Code
+    code: Fira Code
