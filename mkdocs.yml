@@ -4,4 +4,11 @@ theme:
   name: material
   features:
     - navigation.tabs
+  markdown_extensions:
+    - admonition
+    - pymdownx.details
+    - pymdownx.superfences
+    - attr_list
+    - md_in_html
+
 

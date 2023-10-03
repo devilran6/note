@@ -1,7 +1,5 @@
-???+ abstract
+## Home
 
-    Hello ！
-    
-    这里是devilran的note
+!!! tip
 
-
+    这是一个提示内容。
