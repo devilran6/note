@@ -19,6 +19,7 @@ theme:
       toggle:
         icon: material/weather-sunny
         name: 切换至日间模式
+  
   features:
     - navigation.tabs #顶级部分将呈现在上面视口标题下方的菜单层中，但在移动设备上保持原样
     - navigation.tabs.sticky    #启用粘性选项卡后，导航选项卡将锁定在标题下方，并在向下滚动时始终保持可见
@@ -26,22 +27,31 @@ theme:
     - search.suggest   # 搜索输入一些字母时推荐补全整个单词
     - search.highlight   # 搜索出的文章关键词加入高亮
     - navigation.expand   # 打开Tab时左侧目录全部展开
+  font:
+    text: Fira Code
+    code: Fira Code
   language: zh # 一些提示性的文字会变成中文
 
     
 markdown_extensions:
+  - pymdownx.arithmatex: # latex 
+      generic: true
   - admonition
   - pymdownx.details
   - pymdownx.superfences
   - attr_list
   - md_in_html
-  - pymdownx.arithmatex: # latex 
-    generic: true
 
 # latex
 extra_javascript:
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js
+
+# fira code
+extra_css:
+  - custom.css
+  - https://cdn.jsdelivr.net/gh/tonsky/FiraCode/distr/fira_code.css
+
 
 extra:
   generator: false  #删除页脚显示“使用 MkDocs 材料制造”
