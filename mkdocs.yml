@@ -1,9 +1,32 @@
-site_name: My Docs
+site_name: Devilranのnote
+site_url: https://note.devilran.xyz/
+site_author: devilran
 
 theme:
   name: material
+  palette:
+    #primary: blue grey
+  
+    - scheme: default # 日间模式
+      primary: cyan # 上方的
+      accent: cyan # 链接等可交互元件的高亮色
+      toggle:
+        icon: material/weather-night # 图标
+        name: 切换至夜间模式 # 鼠标悬浮提示
+    - scheme: slate # 夜间模式
+      primary: black 
+      accent: cyan
+      toggle:
+        icon: material/weather-sunny
+        name: 切换至日间模式
   features:
-    - navigation.tabs
+    - navigation.tabs #顶级部分将呈现在上面视口标题下方的菜单层中，但在移动设备上保持原样
+    - navigation.tabs.sticky    #启用粘性选项卡后，导航选项卡将锁定在标题下方，并在向下滚动时始终保持可见
+    - navigation.top   # 返回顶部的按钮 在上滑时出现
+    - search.suggest   # 搜索输入一些字母时推荐补全整个单词
+    - search.highlight   # 搜索出的文章关键词加入高亮
+    - navigation.expand   # 打开Tab时左侧目录全部展开
+  language: zh # 一些提示性的文字会变成中文
 
     
 markdown_extensions:
@@ -14,3 +37,32 @@ markdown_extensions:
   - md_in_html
 
 
+
+extra:
+  generator: false  #删除页脚显示“使用 MkDocs 材料制造”
+  social:
+    # - icon: fontawesome/brands/twitter  
+      # link: https://twitter.com/wcowin_
+    - icon: fontawesome/brands/github
+      link: https://github.com/devilran6
+    # - icon: fontawesome/brands/bilibili
+      # link: https://space.bilibili.com/1407028951?spm_id_from=333.1007.0.0
+    # - icon: fontawesome/solid/paper-plane
+      # link: mailto:<1135801806@qq.com> #联系方式
+
+
+# [Navigtion]
+nav: 
+  - Home: Home.md
+  - ACM:
+    - Knowledge:
+      - DP: ACM\Knowledge\DP\换根dp.md
+  - ML:
+    - Pytorch的基本用法: ML\Pytorch.md
+    - 基本模型:
+      - 线性回归: ML\基本模型\linear_model.md
+      - CNN: ML\基本模型\cnn.md
+      - RNN: ML\基本模型\rnn.md
+      - Diffusion: ML\基本模型\diffusion.md
+  - 关于:
+    - 个人履历: about/devilran.md
