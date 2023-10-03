@@ -1,5 +1,5 @@
 ## Home
 
-!!! tip
+!!! note "a title"
+    hello world
 
-    这是一个提示内容。
