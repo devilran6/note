@@ -42,3 +42,13 @@
 取 $g_p <= k_i$ 还是 $g_p + 1 <= k_i$ (即没取到下界gcd的 == 违反限制条件)
 
 取 $k_i <= l_p$ 还是 $k_i <= l_p + 1$ (即没取到上界lca的 == 违反限制条件)
+
+???+ code "Title Here"
+    ```python
+    # Your python code here
+    print("Hello, World!")
+    ```
+```cpp
+#include<iostream>
+111
+```

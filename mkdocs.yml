@@ -4,9 +4,9 @@ site_author: devilran
 
 theme:
   name: material
+  font:
+    text: Roboto Mono
   palette:
-    #primary: blue grey
-  
     - scheme: default # 日间模式
       primary: cyan # 上方的
       accent: cyan # 链接等可交互元件的高亮色
@@ -19,17 +19,13 @@ theme:
       toggle:
         icon: material/weather-sunny
         name: 切换至日间模式
-  
   features:
     - navigation.tabs #顶级部分将呈现在上面视口标题下方的菜单层中，但在移动设备上保持原样
     - navigation.tabs.sticky    #启用粘性选项卡后，导航选项卡将锁定在标题下方，并在向下滚动时始终保持可见
     - navigation.top   # 返回顶部的按钮 在上滑时出现
     - search.suggest   # 搜索输入一些字母时推荐补全整个单词
     - search.highlight   # 搜索出的文章关键词加入高亮
-    # - navigation.expand   # 打开Tab时左侧目录全部展开
-  font:
-    text: Fira Code
-    code: Fira Code
+  font: false
   language: zh # 一些提示性的文字会变成中文
 
     
@@ -49,11 +45,14 @@ markdown_extensions:
 
 # latex
 extra_javascript:
+  - js/custom.js
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js
 
 # fira code
 extra_css:
+  - css/main.css
+  - css/custom.css
   - custom.css
   - https://cdn.jsdelivr.net/gh/tonsky/FiraCode/distr/fira_code.css
 
@@ -69,6 +68,9 @@ extra:
       # link: https://space.bilibili.com/1407028951?spm_id_from=333.1007.0.0
     # - icon: fontawesome/solid/paper-plane
       # link: mailto:<1135801806@qq.com> #联系方式
+  font:
+    links:
+      - "https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap"
 
 
 # [Navigtion]

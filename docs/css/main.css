@@ -1,0 +1,7 @@
+.md-typeset .codehilite {
+    display: none;
+}
+
+.md-typeset .codehilite + .md-typeset__scrollwrap {
+    display: none;
+}
