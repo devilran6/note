@@ -26,7 +26,7 @@ theme:
     - navigation.top   # 返回顶部的按钮 在上滑时出现
     - search.suggest   # 搜索输入一些字母时推荐补全整个单词
     - search.highlight   # 搜索出的文章关键词加入高亮
-    - navigation.expand   # 打开Tab时左侧目录全部展开
+    # - navigation.expand   # 打开Tab时左侧目录全部展开
   font:
     text: Fira Code
     code: Fira Code
@@ -41,6 +41,11 @@ markdown_extensions:
   - pymdownx.superfences
   - attr_list
   - md_in_html
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
 
 # latex
 extra_javascript:
@@ -78,8 +83,9 @@ nav:
       - div2_899: ACM/CF/div2_899.md
       - edu_155: ACM/CF/edu_155.md
     - 模拟vp:
-      - CCPC 2022 mianyang: ACM/模拟vp/ccpc2022mianyang.md
+      - CCPC 2022 绵阳: ACM/模拟vp/ccpc2022mianyang.md
       - ICPC 2023 网络赛第二场: ACM/模拟vp/icpc网络赛第二场.md
+      - CCPC 2023 湘潭邀请赛: ACM/模拟vp/ccpc2023xiangtan_yaoqingsai.md
     - 专题训练:
       - Math:
         - CF数学: ACM/专题训练/Math/CF数学.md
