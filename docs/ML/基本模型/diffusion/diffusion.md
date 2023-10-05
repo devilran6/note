@@ -5,16 +5,48 @@
 !!! info
     最早是在2015年的一篇论文重初见端倪的
 
-    [论文链接](https://proceedings.mlr.press/v37/sohl-dickstein15.html)
+    [Deep Unsupervised Learning using Nonequilibrium Thermodynamics](https://proceedings.mlr.press/v37/sohl-dickstein15.html)
     
     是在2020年的论文发出后开始流行的(具有突破性进展)
     
-    [论文链接](https://proceedings.neurips.cc/paper/2020/hash/4c5bcfec8584af0d967f1ab10179ca4b-Abstract.html)
+    [Denoising Diffusion Probabilistic Models](https://proceedings.neurips.cc/paper/2020/hash/4c5bcfec8584af0d967f1ab10179ca4b-Abstract.html)
 
 
 ## 前置知识
 
 ### 高斯分布
+
+**各向同性的高斯分布**
+
+各向同性的高斯分布（Isotropic Gaussian Distribution）是一种特殊的高斯分布（也叫正态分布），在这种分布中，所有维度（或方向）的标准差都是相同的。也就是说，在多维空间里，这种分布从它的中心点（均值）向外扩散的“速度”或“范围”在所有方向上都是一样的。
+
+数学上，各向同性的多维高斯分布可以用下面的公式表示：
+$$
+p(x) = \frac{1}{(2\pi)^{n/2} \sigma^n} e^{-\frac{||x - \mu||^2}{2\sigma^2}}
+$$
+
+其中，
+
+- x  是一个 n 维向量。
+- $\mu$ 是 n 维均值向量。
+- $\sigma$ 是所有维度上相同的标准差。
+- $||x - \mu||^2$ 表示 x 和 $\mu$ 之间的欧氏距离的平方。
+
+在各向同性的高斯分布中，协方差矩阵（Covariance Matrix）是一个对角矩阵，而且对角线上的元素都是 $\sigma^2$，表示所有维度都有相同的方差。
+
+这种分布在机器学习和数据科学中经常用作简化假设或者生成数据。因为它在所有方向上都有相同的特性，所以计算和推理通常会更简单。
+
+
+**两个高斯分布的和仍然是一个高斯分布**
+
+
+如果我们需要投掷两次骰子的话
+
+一个骰子投两次 == 投一次两个骰子
+
+把两个单独的概率 合成 一次两个合并的概率
+
+在图片这里是将两个高斯分布 合成 ==> 仍然是高斯分布
 
 $$
 \begin{equation}
@@ -24,7 +56,50 @@ $$
 
 ### 贝叶斯公式
 
+P(ABC) == P(C|BA)P(BA) == P(C|BA)P(B|A)P(A)
+
+P(BC|A) == P(B|A)P(C|AB)
+
+
+!!! info
+    **第二个式子的推导**
+
+    P(ABC) == P(C|BA)P(BA) == P(C|BA)P(B|A)P(A)
+
+    P(ABC) == P(BC|A)P(A)
+
+    ==> P(C|BA)P(B|A)P(A) == P(BC|A)P(A)
+
+    两边消去P(A)
+
+    ==> P(BC|A) == P(B|A)P(C|AB)
+
+
+
 ### 马尔科夫链
+
+!!! tip
+    "The future is independent of the past given the present!"
+
+    未来独立于过去，只基于当下。
+
+[简述马尔可夫链【通俗易懂】](https://zhuanlan.zhihu.com/p/448575579)
+
+[马尔科夫链（Markov Chain），机器学习和人工智能的基石](https://www.toutiao.com/article/6669798537494004227/)
+
+
+**基于马尔科夫假设的条件概率**
+
+即当前时刻的概率分布**只**与上一时刻有关
+
+如果满足马尔科夫链关系A->B->C，那么有
+
+P(ABC) == P(C|BA)P(BA) == P(C|B)P(B|A)P(A)
+
+P(BC|A) == P(B|A)P(C|B)
+
+!!! info
+    因为C的上一个时间点是B，所以A对C的影响被忽略
 
 ### 重参数化技巧
 
@@ -56,7 +131,7 @@ $$
 
 ### Jensen不等式
 
-[链接](https://zhuanlan.zhihu.com/p/57961533)
+[碎片化学习之数学（一）：Jensen不等式](https://zhuanlan.zhihu.com/p/57961533)
 
 若$f(x)$是区间$[a,b]$上的凸函数,则对任意的$x_1, x_2, \cdots, x_n \in [a, b]$,则有
 
@@ -191,9 +266,11 @@ $$
 
 - 通过Jensen不等式, 将问题转化为优化上界
 
+(详细推导略 Todo)
+
 $$
 \begin{align}
-L_{simple} = ...
+L_{simple} = E_{x_0 \sim q(x_0), \epsilon \sim N(0, I)}[\Vert\epsilon-\epsilon_\theta(\sqrt{\overline{\alpha_t}}x_0 + \sqrt{1-\overline{\alpha_t}}\epsilon, t)\Vert^2]
 \end{align}
 $$
 

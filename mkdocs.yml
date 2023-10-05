@@ -99,6 +99,7 @@ nav:
           - 异或 xor: xor.md
       - 图论:
         - 图论(全部): ACM/Knowledge/图论/图论.md
+      - 字符串: ACM/Knowledge/字符串/字符串.md
       - DP: ACM/Knowledge/DP/换根dp.md
     - CF:
       - div2_892: ACM/CF/div2_892.md
@@ -124,7 +125,9 @@ nav:
       - 线性回归: ML/基本模型/linear_model.md
       - CNN: ML/基本模型/cnn.md
       - RNN: ML/基本模型/rnn.md
-      - Diffusion: ML/基本模型/diffusion.md
+      - Diffusion:
+        - Diffusion: ML/基本模型/diffusion/diffusion.md
+        - code: ML/基本模型/diffusion/code.md
   - Linux:
     - Linux: Linux/Linux.md
   - OS:
