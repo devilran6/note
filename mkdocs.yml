@@ -81,23 +81,38 @@ nav:
   - ACM:
     - 微操: ACM/微操.md
     - Knowledge:
-      - DP: ACM/Knowledge/DP/换根dp.md
+      - 基本算法: ACM/Knowledge/基本算法/基本算法.md
       - Math:
-        - 1.数论: ACM/Knowledge/Math/数论/数论.md
+        - 1.数论: 
+          - 数论(全部): ACM/Knowledge/Math/数论/数论.md
+          - 扩展欧几里得: ACM/Knowledge/Math/数论/扩展欧几里得.md
+          - 扩展欧拉定理: ACM/Knowledge/Math/数论/扩展欧拉定理.md
+          - 扩展中国剩余定理: ACM/Knowledge/Math/数论/扩展中国剩余定理.md
+          - 线性逆元: ACM/Knowledge/Math/数论/线性逆元.md
         - 2.组合数学: ACM/Knowledge/Math/组合数学/组合数学.md
         - 3.概率与数学期望: ACM/Knowledge/Math/概率与数学期望/概率与数学期望.md
         - 4.博弈论: ACM/Knowledge/Math/博弈论/博弈论.md
         - 5.多项式与生成函数: ACM/Knowledge/Math/多项式与生成函数/多项式与生成函数.md
         - 6.线性代数: ACM/Knowledge/Math/线性代数/线性代数.md
+        - 7.其他:
+          - 容斥原理: ACM/Knowledge/Math/其他/容斥原理.md
+      - 图论:
+        - 图论(全部): ACM/Knowledge/图论/图论.md
+      - DP: ACM/Knowledge/DP/换根dp.md
     - CF:
       - div2_892: ACM/CF/div2_892.md
       - div2_893: ACM/CF/div2_893.md
+      - div2_895: ACM/CF/div2_895.md
+      - div2_897: ACM/CF/div2_897.md
       - div2_899: ACM/CF/div2_899.md
+      - div3_900: ACM/CF/div3_900.md
+      - div2_901: ACM/CF/div2_901.md
       - edu_155: ACM/CF/edu_155.md
     - 模拟vp:
       - CCPC 2022 绵阳: ACM/模拟vp/ccpc2022mianyang.md
       - ICPC 2023 网络赛第二场: ACM/模拟vp/icpc网络赛第二场.md
       - CCPC 2023 湘潭邀请赛: ACM/模拟vp/ccpc2023xiangtan_yaoqingsai.md
+      - ICPC 2022 沈阳: ACM/模拟vp/icpc2022shenyang.md
     - 专题训练:
       - Math:
         - CF数学: ACM/专题训练/Math/CF数学.md
