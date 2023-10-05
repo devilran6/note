@@ -1,4 +1,6 @@
 
+[整场题目链接](https://codeforces.com/gym/104396)
+
 
 ## E. LCM Plus GCD
 [题目链接](https://codeforces.com/gym/104396/problem/E)

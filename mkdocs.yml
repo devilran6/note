@@ -4,8 +4,6 @@ site_author: devilran
 
 theme:
   name: material
-  font:
-    text: Roboto Mono
   palette:
     - scheme: default # 日间模式
       primary: cyan # 上方的
@@ -25,7 +23,9 @@ theme:
     - navigation.top   # 返回顶部的按钮 在上滑时出现
     - search.suggest   # 搜索输入一些字母时推荐补全整个单词
     - search.highlight   # 搜索出的文章关键词加入高亮
-  font: false
+  font:
+      text: 'Fira Code'
+      code: 'Fira Code'
   language: zh # 一些提示性的文字会变成中文
 
     
@@ -42,6 +42,8 @@ markdown_extensions:
   - pymdownx.keys
   - pymdownx.mark
   - pymdownx.tilde
+  - codehilite:
+      linenums: true
 
 # latex
 extra_javascript:

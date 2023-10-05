@@ -12,17 +12,4 @@
     background-color: #0075d4;  // 深蓝色 (darkblue) 的十六进制表示
 }
 
-.highlight code, .highlight span {
-    font-family: 'Fira Code', monospace !important;
-}
-
-
-pre, code, .md-typeset .code, .md-typeset .token {
-    font-family: "Fira Code", "Source Han Sans CN", monospace !important;
-}
-
-pre code {
-    font-family: 'Fira Code', monospace !important;
-}
-
 
