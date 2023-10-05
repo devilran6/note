@@ -1,35 +1,13 @@
----
-title: CF数学
-description: codeforces 数学 1500-1800
-categories:
-  - ACM-Math
-highlight_shrink: false
-mathjax: true
-copyright_author: devilran
-sticky: 2
-toc: true
-toc_number: true
-abbrlink: aa579273
-date: 2023-09-28 00:00:00
-copyright_author_href:
-copyright_url:
-copyright_info:
----
+## 1542B Plus and Multiply
 
-# RWADME
-
-
-
-## 1542B
-
-### 题目
+**题目**
 
 - 1 在集合中
 - 给定 a 和 b ,如果 x 在集合中,那么 x*a 和 x+b 也在集合里
 
 多组测试 问给定 n, a, b, n是否在集合中
 
-### 思路
+**思路:**
 
 观察模数,加 b 不能改变 mod b 的值, 所以 n mod b 出现的模数智能通过 乘a来进行调整.
 
@@ -47,7 +25,7 @@ a(a + (ab + b)) = a^2 + (a^2 + a) * b发现只会只有a^k这一项 mod b != 0
 
 
 
-### code
+**code**
 
 
 
@@ -121,9 +99,9 @@ int main()
 
 
 
-## 1538F
+## 1538F Interesting Function
 
-### 题目
+**题目:**
 
 给你两个整数 $l$和 $r$，其中 $l \lt r$。我们将在$l$的基础上加上$1$，直到结果等于$r$。因此，正好会进行 $r-l$ 次加法运算。对于每一个这样的加法，让我们来看看在它之后将被改变的位数。
 
@@ -139,7 +117,7 @@ int main()
 
 
 
-### 思路
+**思路:**
 
 
 
@@ -151,7 +129,7 @@ fun(x) 为计算 1 ~ x 的变换次数
 
 
 
-### code
+**code**
 
 
 
@@ -219,7 +197,7 @@ int main()
 ## 1349A
 
 
-## 1458A
+## 1458A Row GCD
 
 You are given two positive integer sequences $a_1, \ldots, a_n$ and $b_1, \ldots, b_m$. For each $j = 1, \ldots, m$ find the greatest common divisor of $a_1 + b_j, \ldots, a_n + b_j$.
 
@@ -303,3 +281,153 @@ int main()
 ```
 
 
+## 1397B Power Sequence
+
+**题目:**
+
+有一个长度为n的序列,可以重新排序，可以花费1使得其中一个元素加一或者减一。
+
+使得排完序后的序列 满足 $a_i = c^i$ 其中c是一个正整数
+
+**思路：**
+
+如果n比较大，c也比较大，又因为最开始的$a_i \in [1, 1e9]$,所以估计一下，这个的花费小于所有数都变为1的花费, $\sum{(a_i-1)}$
+
+同时,因为 $n \geq 3$ 所以c最多为 $\sqrt{1e9} \approx 1e5$,枚举c从1到1e5即可.
+
+乍一看 超时了,可是 n 只要一大, c 必然不会大,所以肯定跑不满
+
+**code**
+
+```cpp
+#include <bits/stdc++.h>
+
+#define LL long long
+#define ULL unsigned long long
+#define x first
+#define y second
+#define endl "\n"
+
+using namespace std;
+
+typedef pair<int, int> PII;
+typedef pair<LL, LL> PLL;
+
+const int INF = 0x3f3f3f3f;
+
+int main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0), cout.tie(0);
+
+    int n;
+    cin >> n;
+
+    vector<int> a(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+
+    sort(a.begin(), a.end());
+
+    LL ans = 1E18;
+    for (LL i = 1; i <= 100000; i++)
+    {
+        LL res = 0;
+        bool ok = true;
+        for (LL j = 0, w = 1; j < n; j++, w *= i)
+        {
+            res += 1ll * abs(a[j] - w);
+            if (res >= ans)
+            {
+                ok = false;
+                break;
+            }
+        }
+
+        if (i != 1 && !ok)
+        {
+            break;
+        }
+        else
+        {
+            ans = res;
+        }
+    }
+
+    cout << ans << endl;
+    return 0;
+}
+```
+
+## 1514C Product 1 Modulo N
+
+**题目:**
+
+
+
+**思路:**
+
+
+
+**code**
+
+```cpp
+#include <bits/stdc++.h>
+
+#define LL long long
+#define ULL unsigned long long
+#define x first
+#define y second
+#define endl "\n"
+
+using namespace std;
+
+typedef pair<int, int> PII;
+typedef pair<LL, LL> PLL;
+
+const int INF = 0x3f3f3f3f;
+
+int main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0), cout.tie(0);
+
+    int n;
+    cin >> n;
+    vector<int> v;
+
+    LL w = 1;
+    for (int i = 1; i <= n; i++)
+    {
+        if (gcd(i, n) == 1)
+        {
+            v.push_back(i);
+            w = w * i % n;
+        }
+    }
+
+    if (w != 1)
+    {
+        cout << v.size() - 1 << endl;
+        for (int i = 0; i < v.size(); i++)
+            if (v[i] != w)
+            {
+                cout << v[i] << ' ';
+            }
+        cout << endl;
+    }
+    else
+    {
+        cout << v.size() << endl;
+        for (int i = 0; i < v.size(); i++)
+        {
+            cout << v[i] << ' ';
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
+```

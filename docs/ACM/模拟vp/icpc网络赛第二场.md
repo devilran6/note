@@ -1,30 +1,14 @@
----
-title: ICPC网络赛第二场
-description: ICPC网络赛第二场
-categories:
-  - ICPC
-highlight_shrink: false
-mathjax: true
-copyright_author: devilran
-abbrlink: 786975e4
-date: 2023-10-01 00:00:00
-copyright_author_href:
-copyright_url:
-copyright_info:
----
+# ICPC网络赛第二场
 
-{% note info flat %}
-Code Reference：
-
-https://zhuanlan.zhihu.com/p/658033297 
-
-https://blog.csdn.net/qq_62817228/article/details/133214071
-{% endnote %}
-
-{% note success flat %} ！！！{% endnote %}
+!!! warning Code Reference
+    https://zhuanlan.zhihu.com/p/658033297
+  
+    https://blog.csdn.net/qq_62817228/article/details/133214071
 
 
 ## K Super-Knight
+
+**题目:**
 
 n * n的棋盘，上下连接，左右连接。
 
@@ -34,3 +18,6 @@ n * n的棋盘，上下连接，左右连接。
 
 **思路：**
 
+
+
+**code**
