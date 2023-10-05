@@ -96,6 +96,7 @@ nav:
         - 6.线性代数: ACM/Knowledge/Math/线性代数/线性代数.md
         - 7.其他:
           - 容斥原理: ACM/Knowledge/Math/其他/容斥原理.md
+          - 异或 xor: xor.md
       - 图论:
         - 图论(全部): ACM/Knowledge/图论/图论.md
       - DP: ACM/Knowledge/DP/换根dp.md
