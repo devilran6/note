@@ -105,6 +105,7 @@ nav:
     - Linux: Linux/Linux.md
   - OS:
     - OS: OS/os.md
+    - shlab的前置知识: OS/shlab_preKnowledge.md
   - CTF:
     - CTF: CTF/CTF.md
   - 关于:
