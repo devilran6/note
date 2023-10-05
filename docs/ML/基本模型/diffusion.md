@@ -208,7 +208,7 @@ $$
     - 视频
         - [大白话AI | 图像生成模型DDPM | 扩散模型 | 生成模型 | 概率扩散去噪生成模型](https://www.bilibili.com/video/BV1tz4y1h7q1/?spm_id_from=333.999.0.0)
         - [54、Probabilistic Diffusion Model概率扩散模型理论与完整PyTorch代码详细解读](https://www.bilibili.com/video/BV1b541197HX/?spm_id_from=333.999.0.0)
-      - [扩散模型/Diffusion Model原理讲解](https://www.bilibili.com/video/BV1PY411Z74Z/?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click&vd_source=664d223fe65c6706d11206b7416f5b92)
+        - [扩散模型/Diffusion Model原理讲解](https://www.bilibili.com/video/BV1PY411Z74Z/?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click&vd_source=664d223fe65c6706d11206b7416f5b92)
       
     - 文章
         - [Diffusion Model原理解析](https://zhuanlan.zhihu.com/p/539283420)
