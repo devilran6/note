@@ -79,8 +79,16 @@ extra:
 nav: 
   - Home: Home.md
   - ACM:
+    - 微操: ACM/微操.md
     - Knowledge:
       - DP: ACM/Knowledge/DP/换根dp.md
+      - Math:
+        - 1.数论: ACM/Knowledge/Math/数论/数论.md
+        - 2.组合数学: ACM/Knowledge/Math/组合数学/组合数学.md
+        - 3.概率与数学期望: ACM/Knowledge/Math/概率与数学期望/概率与数学期望.md
+        - 4.博弈论: ACM/Knowledge/Math/博弈论/博弈论.md
+        - 5.多项式与生成函数: ACM/Knowledge/Math/多项式与生成函数/多项式与生成函数.md
+        - 6.线性代数: ACM/Knowledge/Math/线性代数/线性代数.md
     - CF:
       - div2_892: ACM/CF/div2_892.md
       - div2_893: ACM/CF/div2_893.md
