@@ -13,10 +13,7 @@ print(dataset.shape)
 ```
 **保留原图像的x轴和z轴**
 
-<p align="center">
-  <img src="assets/2023-10-06-18-59-33.png" width="80%">
-</p>
-
+![](assets/2023-10-06-18-59-33.png)
 
 ## 确定超参数的值
 
@@ -35,49 +32,57 @@ one_minus_alphas_bar_sqrt = torch.sqrt(1 - alphas_prod)  # 计算1 - alphas_prod
 ```
 
 
-**betas = torch.linspace(-6,6,num_steps)**: 
-\[
+**betas = torch.linspace(-6,6,num_steps)**:
+
+$$
 \text{betas}_i = -6 + \frac{(6 - (-6)) \times (i - 1)}{\text{num\_steps} - 1}, \quad i = 1, 2, \ldots, \text{num\_steps}
-\]
+$$
 
 **betas = torch.sigmoid(betas)*(0.5e-2 - 1e-5)+1e-5**: 
-\[
+
+$$
 \text{betas}_i' = \frac{1}{1 + e^{-\text{betas}_i}} \times (0.5 \times 10^{-2} - 10^{-5}) + 10^{-5}
-\]
+$$
 
 **alphas = 1-betas**: 
-\[
+
+$$
 \text{alphas}_i = 1 - \text{betas}_i'
-\]
+$$
 
 **alphas_prod = torch.cumprod(alphas,0)**: 
-\[
+
+$$
 \text{alphas\_prod}_i = \prod_{j=1}^{i} \text{alphas}_j
-\]
+$$
 
 **alphas_prod_p = torch.cat([torch.tensor([1]).float(),alphas_prod[:-1]],0)**: 
-\[
+
+$$
 \text{alphas\_prod\_p}_i = 
 \begin{cases} 
 1, & \text{if } i = 1 \\
 \text{alphas\_prod}_{i-1}, & \text{otherwise}
 \end{cases}
-\]
+$$
 
 **alphas_bar_sqrt = torch.sqrt(alphas_prod)**: 
-\[
+
+$$
 \text{alphas\_bar\_sqrt}_i = \sqrt{\text{alphas\_prod}_i}
-\]
+$$
 
 **one_minus_alphas_bar_log = torch.log(1 - alphas_prod)**: 
-\[
+
+$$
 \text{one\_minus\_alphas\_bar\_log}_i = \ln(1 - \text{alphas\_prod}_i)
-\]
+$$
 
 **one_minus_alphas_bar_sqrt = torch.sqrt(1 - alphas_prod)**: 
-\[
+
+$$
 \text{one\_minus\_alphas\_bar\_sqrt}_i = \sqrt{1 - \text{alphas\_prod}_i}
-\]
+$$
 
 
 
