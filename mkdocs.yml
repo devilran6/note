@@ -119,6 +119,7 @@ nav:
       - Math:
         - CF数学: ACM/专题训练/Math/CF数学.md
         - LG数学: ACM/专题训练/Math/LG数学.md
+      - DP: ACM/专题训练/DP.md
   - ML:
     - Pytorch:
       - Pytorch的基本用法: ML/Pytorch/Pytorch.md
