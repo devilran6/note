@@ -120,14 +120,17 @@ nav:
         - CF数学: ACM/专题训练/Math/CF数学.md
         - LG数学: ACM/专题训练/Math/LG数学.md
   - ML:
-    - Pytorch的基本用法: ML/Pytorch.md
-    - 基本模型:
+    - Pytorch:
+      - Pytorch的基本用法: ML/Pytorch/Pytorch.md
+      - 目标函数: ML/Pytorch/目标函数.md
+    - 基本模型: 
       - 线性回归: ML/基本模型/linear_model.md
       - CNN: ML/基本模型/cnn.md
       - RNN: ML/基本模型/rnn.md
       - Diffusion:
         - Diffusion: ML/基本模型/diffusion/diffusion.md
         - code: ML/基本模型/diffusion/code.md
+        - NOISE-AWARE_SPEECH_ENHANCEMENT_USING_DIFFUSION_PROBABILISTIC_MODEL: ML/基本模型/diffusion/NOISE-AWARE_SPEECH_ENHANCEMENT_USING_DIFFUSION_PROBABILISTIC_MODEL.md
   - Linux:
     - Linux: Linux/Linux.md
   - OS:
