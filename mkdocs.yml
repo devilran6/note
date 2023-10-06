@@ -128,6 +128,7 @@ nav:
       - 线性回归: ML/基本模型/linear_model.md
       - CNN: ML/基本模型/cnn.md
       - RNN: ML/基本模型/rnn.md
+      - MLP: ML/基本模型/MLP.md
       - Diffusion:
         - Diffusion: ML/基本模型/diffusion/diffusion.md
         - code: ML/基本模型/diffusion/code.md
