@@ -439,6 +439,11 @@ for t in range(num_epoch):
             axs[i-1].set_title('$q(\mathbf{x}_{'+str(i*10)+'})$')
 ```
 
+**效果图**
+
+![](assets/2023-10-08-01-22-31.png)
+
+
 !!! warning "Reference"
 
     - 论文 

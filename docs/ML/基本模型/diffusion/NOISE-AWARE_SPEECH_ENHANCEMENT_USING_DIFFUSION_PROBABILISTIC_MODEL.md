@@ -76,15 +76,9 @@ The main principle of these approaches is to learn the inherent properties of cl
 
 这些方法的主要原理是**学习干净语音的固有属性**，如时间和频谱结构，然后**将其作为先验知识，从噪声输入中推断出干净语音**。因此，这些方法专注于生成干净的语音，因此被认为更能适应现实世界中不同的声学条件。
 
-
-
-
-
 对于未见测试噪声方面(unseen testing noises):
 
 生成模型的性能优于判别模型
-
-
 
 #### 引出本篇论文中的内容
 

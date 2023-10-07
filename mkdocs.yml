@@ -111,6 +111,7 @@ nav:
       - div2_901: ACM/CF/div2_901.md
       - edu_155: ACM/CF/edu_155.md
     - 模拟vp:
+      - ICPC 2022-2023 Latin American: docs/ACM/模拟vp/icpc2022Latin.md
       - CCPC 2022 绵阳: ACM/模拟vp/ccpc2022mianyang.md
       - ICPC 2023 网络赛第二场: ACM/模拟vp/icpc网络赛第二场.md
       - CCPC 2023 湘潭邀请赛: ACM/模拟vp/ccpc2023xiangtan_yaoqingsai.md
