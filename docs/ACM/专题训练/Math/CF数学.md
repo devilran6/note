@@ -450,3 +450,92 @@ int main()
     return 0;
 }
 ```
+
+
+## 1342C Yet Another Counting Problem
+
+**题目：**
+
+给你两个整数 $a$ 和 $b$ 以及 $q$ 个查询。$i$\-th查询由两个数字$l_i$和$r_i$组成，其答案是有多少个整数$x$使得$l_i \le x \le r_i$和$((x \bmod a) \bmod b) \ne ((x \bmod b) \bmod a)$。计算每个查询的答案。
+
+输入
+
+第一行包含一个整数 $t$ ($1 \le t \le 100$) - 测试用例的数量。然后是测试用例。
+
+每个测试用例的第一行包含三个整数 $a$、$b$ 和 $q$ ($1 \le a, b \le 200$; $1 \le q \le 500$)。
+
+然后是$q$行，每行包含两个整数$l_i$和$r_i$。($1 \le l_i \le r_i \le 10^{18}$) 的整数。
+
+**思路：**
+
+发现a和b都很小，只有200。
+
+因为是模a后再模b，所以是lca(a, b)的多余量一定会被模掉。
+
+所以我们可以预处理出来 $1 \sim a * b$ 的情况的前缀和
+
+之后分别计算 l - 1 和 r, 结果为 f(r) - f(l - 1)，就可以了
+
+**code**
+
+```cpp
+#include <bits/stdc++.h>
+
+#define LL long long
+#define ULL unsigned long long
+#define x first
+#define y second
+#define endl "\n"
+#define int long long
+
+using namespace std;
+
+typedef pair<int, int> PII;
+typedef pair<LL, LL> PLL;
+
+const int INF = 0x3f3f3f3f;
+
+void solve()
+{
+    int a, b, q;
+    cin >> a >> b >> q;
+
+    vector<LL> sum(a * b + 10, 0);
+    for (int x = 1; x <= a * b; x++)
+    {
+        if (x % a % b != x % b % a)
+            sum[x]++;
+    }
+
+    for (int i = 1; i < sum.size(); i++)
+        sum[i] += sum[i - 1];
+
+    while (q--)
+    {
+        LL l, r;
+        cin >> l >> r;
+
+        int sl = ((l - 1) / (a * b)) * sum[a * b] + sum[(l - 1) % (a * b)];
+        int sr = (r / (a * b)) * sum[a * b] + sum[r % (a * b)];
+        cout << sr - sl << ' ';
+    }
+
+    cout << endl;
+}
+
+signed main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0), cout.tie(0);
+
+    int t;
+    cin >> t;
+
+    while (t--)
+    {
+        solve();
+    }
+
+    return 0;
+}
+```
