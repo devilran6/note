@@ -1,0 +1,3444 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="devilran">
+      
+      
+        <link rel="canonical" href="https://note.devilran.xyz/CS/OS/shlab_preKnowledge/">
+      
+      
+        <link rel="prev" href="../os/">
+      
+      
+        <link rel="next" href="../../../Linux/Linux/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.5">
+    
+    
+      
+        <title>shlab的前置知识 - Devilranのnote</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6a10b989.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Code:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Fira Code";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/main.css">
+    
+      <link rel="stylesheet" href="../../../css/custom.css">
+    
+      <link rel="stylesheet" href="../../../custom.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tonsky/FiraCode/distr/fira_code.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="cyan" data-md-color-accent="cyan">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Devilranのnote" class="md-header__button md-logo" aria-label="Devilranのnote" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Devilranのnote
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              shlab的前置知识
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="cyan" data-md-color-accent="cyan"  aria-label="切换至夜间模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至夜间模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="切换至日间模式"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换至日间模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../Home/" class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ACM/%E5%BE%AE%E6%93%8D/" class="md-tabs__link">
+          
+  
+  ACM
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../ML/Pytorch/Pytorch/" class="md-tabs__link">
+          
+  
+  ML
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E4%BA%8C%E5%8F%89%E6%A0%91/%E4%BA%8C%E5%8F%89%E6%A0%91/" class="md-tabs__link">
+          
+  
+  CS
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Linux/Linux/" class="md-tabs__link">
+          
+  
+  Linux
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../CTF/CTF/" class="md-tabs__link">
+          
+  
+  CTF
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../about/devilran/" class="md-tabs__link">
+          
+  
+  关于
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Devilranのnote" class="md-nav__button md-logo" aria-label="Devilranのnote" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Devilranのnote
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Home/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    ACM
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            ACM
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/%E5%BE%AE%E6%93%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    微操
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Knowledge
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Knowledge
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/Knowledge/%E5%9F%BA%E6%9C%AC%E7%AE%97%E6%B3%95/%E5%9F%BA%E6%9C%AC%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    基本算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Math
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2_1" id="__nav_2_2_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    1.数论
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_2_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            1.数论
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/Knowledge/Math/%E6%95%B0%E8%AE%BA/%E6%95%B0%E8%AE%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数论(全部)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/Knowledge/Math/%E6%95%B0%E8%AE%BA/%E6%89%A9%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    扩展欧几里得
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/Knowledge/Math/%E6%95%B0%E8%AE%BA/%E6%89%A9%E5%B1%95%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    扩展欧拉定理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/Knowledge/Math/%E6%95%B0%E8%AE%BA/%E6%89%A9%E5%B1%95%E4%B8%AD%E5%9B%BD%E5%89%A9%E4%BD%99%E5%AE%9A%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    扩展中国剩余定理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/Knowledge/Math/%E6%95%B0%E8%AE%BA/%E7%BA%BF%E6%80%A7%E9%80%86%E5%85%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    线性逆元
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/Knowledge/Math/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.组合数学
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/Knowledge/Math/%E6%A6%82%E7%8E%87%E4%B8%8E%E6%95%B0%E5%AD%A6%E6%9C%9F%E6%9C%9B/%E6%A6%82%E7%8E%87%E4%B8%8E%E6%95%B0%E5%AD%A6%E6%9C%9F%E6%9C%9B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.概率与数学期望
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/Knowledge/Math/%E5%8D%9A%E5%BC%88%E8%AE%BA/%E5%8D%9A%E5%BC%88%E8%AE%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4.博弈论
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/Knowledge/Math/%E5%A4%9A%E9%A1%B9%E5%BC%8F%E4%B8%8E%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0/%E5%A4%9A%E9%A1%B9%E5%BC%8F%E4%B8%8E%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.多项式与生成函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/Knowledge/Math/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6.线性代数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2_7" id="__nav_2_2_2_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    7.其他
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_2_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            7.其他
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/Knowledge/Math/%E5%85%B6%E4%BB%96/%E5%AE%B9%E6%96%A5%E5%8E%9F%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    容斥原理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../xor.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    异或 xor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    图论
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            图论
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/Knowledge/%E5%9B%BE%E8%AE%BA/%E5%9B%BE%E8%AE%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图论(全部)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/Knowledge/%E5%AD%97%E7%AC%A6%E4%B8%B2/%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    字符串
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/Knowledge/DP/%E6%8D%A2%E6%A0%B9dp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    CF
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            CF
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/CF/edu_156/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    edu_156
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/CF/edu_155/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    edu_155
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/CF/div2_901/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    div2_901
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/CF/div3_900/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    div3_900
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/CF/div2_899/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    div2_899
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/CF/div2_897/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    div2_897
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/CF/div2_895/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    div2_895
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/CF/div2_893/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    div2_893
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/CF/div2_892/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    div2_892
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    模拟vp
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            模拟vp
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/%E6%A8%A1%E6%8B%9Fvp/icpc2023xianggang/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ICPC 2023 香港
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/%E6%A8%A1%E6%8B%9Fvp/icpc2022Latin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ICPC 2022-2023 Latin American
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/%E6%A8%A1%E6%8B%9Fvp/ccpc2022mianyang/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CCPC 2022 绵阳
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/%E6%A8%A1%E6%8B%9Fvp/icpc%E7%BD%91%E7%BB%9C%E8%B5%9B%E7%AC%AC%E4%BA%8C%E5%9C%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ICPC 2023 网络赛第二场
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/%E6%A8%A1%E6%8B%9Fvp/ccpc2023xiangtan_yaoqingsai/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CCPC 2023 湘潭邀请赛
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/%E6%A8%A1%E6%8B%9Fvp/icpc2022shenyang/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ICPC 2022 沈阳
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    专题训练
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            专题训练
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_1" id="__nav_2_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Math
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Math
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/%E4%B8%93%E9%A2%98%E8%AE%AD%E7%BB%83/Math/CF%E6%95%B0%E5%AD%A6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CF数学
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/%E4%B8%93%E9%A2%98%E8%AE%AD%E7%BB%83/Math/LG%E6%95%B0%E5%AD%A6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LG数学
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ACM/%E4%B8%93%E9%A2%98%E8%AE%AD%E7%BB%83/DP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    ML
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            ML
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Pytorch
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Pytorch
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ML/Pytorch/Pytorch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pytorch的基本用法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ML/Pytorch/%E7%9B%AE%E6%A0%87%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    目标函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    基本模型
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            基本模型
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ML/%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B/linear_model/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    线性回归
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ML/%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B/cnn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CNN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ML/%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B/rnn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RNN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ML/%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B/MLP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MLP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_5" id="__nav_3_2_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Diffusion
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Diffusion
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ML/%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B/diffusion/diffusion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Diffusion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ML/%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B/diffusion/code/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    code
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ML/%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B/diffusion/NOISE-AWARE_SPEECH_ENHANCEMENT_USING_DIFFUSION_PROBABILISTIC_MODEL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NOISE-AWARE_SPEECH_ENHANCEMENT_USING_DIFFUSION_PROBABILISTIC_MODEL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    CS
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            CS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    数据结构
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            数据结构
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E4%BA%8C%E5%8F%89%E6%A0%91/%E4%BA%8C%E5%8F%89%E6%A0%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    二叉树
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    OS
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            OS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../os/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    shlab的前置知识
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    shlab的前置知识
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    前置知识
+  </a>
+  
+    <nav class="md-nav" aria-label="前置知识">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#process" class="md-nav__link">
+    进程 Process
+  </a>
+  
+    <nav class="md-nav" aria-label="进程 Process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    定义：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    两个关键抽象：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    用户模式和内核模式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    并发流
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    上下文切换
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    系统调用错误处理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    进程控制
+  </a>
+  
+    <nav class="md-nav" aria-label="进程控制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#id" class="md-nav__link">
+    ID与获取
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    进程的状态
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    进程的终止
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    进程的创建
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    进程的回收
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    子进程加载并运行程序
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    信号
+  </a>
+  
+    <nav class="md-nav" aria-label="信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    信号术语
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-kill" class="md-nav__link">
+    发送信号--Kill
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-sigint_handler" class="md-nav__link">
+    接收信号--sigint_handler
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    阻塞信号
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell" class="md-nav__link">
+    Shell
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    参考资料
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Linux
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Linux
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Linux/Linux/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    CTF
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            CTF
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CTF/CTF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CTF
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    关于
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            关于
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/devilran/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    个人履历
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    前置知识
+  </a>
+  
+    <nav class="md-nav" aria-label="前置知识">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#process" class="md-nav__link">
+    进程 Process
+  </a>
+  
+    <nav class="md-nav" aria-label="进程 Process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    定义：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    两个关键抽象：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    用户模式和内核模式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    并发流
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    上下文切换
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    系统调用错误处理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    进程控制
+  </a>
+  
+    <nav class="md-nav" aria-label="进程控制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#id" class="md-nav__link">
+    ID与获取
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    进程的状态
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    进程的终止
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    进程的创建
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    进程的回收
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    子进程加载并运行程序
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    信号
+  </a>
+  
+    <nav class="md-nav" aria-label="信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    信号术语
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-kill" class="md-nav__link">
+    发送信号--Kill
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-sigint_handler" class="md-nav__link">
+    接收信号--sigint_handler
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    阻塞信号
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell" class="md-nav__link">
+    Shell
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    参考资料
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>shlab的前置知识</h1>
+
+<h2 id="_1">前置知识</h2>
+<h3 id="process">进程 Process</h3>
+<h4 id="_2"><strong>定义：</strong></h4>
+<p>进程是一个执行中程序的实例
+A process is an instance of a running program.</p>
+<h4 id="_3"><strong>两个关键抽象：</strong></h4>
+<ul>
+<li>逻辑控制流（Logical control flow）</li>
+<li>它提供一个假象，好像我们的程序独占地使用处理器</li>
+<li>内核机制 -&gt; 上下文转换</li>
+<li>私有地址空间（Private address space）</li>
+<li>它提供一个假象，好像我们的程序独占地使用内存系统</li>
+<li>内核机制 -&gt; 虚拟内存</li>
+</ul>
+<blockquote>
+<p><strong>上下文转换</strong>
+内容
+内核为每一个进程维持一个上下文。
+上下文是内核重新启动一个被抢占的进程所需的状态。
+对象包括：各种寄存器，计数器，栈空间，各种内核数据结构</p>
+<p>步骤
+1. 保存当前进程的上下文
+2. 恢复某个先前被抢占的进程被保存的上线问
+3. 将控制传递给这个新恢复的进程</p>
+<p>发生的时机
+系统调用：内核代表用户执行系统调用
+中断：时钟中断</p>
+<p><strong>虚拟内存</strong>
+虚拟内存是计算机系统内存管理的一种技术。它使得应用程序认为它拥有连续可用的内存（一个连续完整的地址空间），而实际上物理内存通常被分隔成多个内存碎片，还有部分暂时存储在外部磁盘存储器上，在需要时进行数据交换（维基百科）</p>
+</blockquote>
+<h4 id="_4"><strong>用户模式和内核模式</strong></h4>
+<p>这是一个链接 <a href="https://zhuanlan.zhihu.com/p/342056802">参考文章：Linux内核</a></p>
+<h4 id="_5"><strong>并发流</strong></h4>
+<h4 id="_6"><strong>上下文切换</strong></h4>
+<div class="page"/>
+
+<h3 id="_7">系统调用错误处理</h3>
+<p>我们需要进行大量的系统调用。
+linux系统级函数遇到错误时，通常会返回-1，并通过设置全局整数变量<code>errno</code>来表示什么出错了。</p>
+<p>例如当调用linux fork函数时，即<code>pid = Fork()</code>，可以用如下代码进行检查是否出错
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">unix_error</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">msg</span><span class="p">){</span>
+<span class="w">  </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;%s: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span><span class="p">,</span><span class="w"> </span><span class="n">strerror</span><span class="p">(</span><span class="n">errno</span><span class="p">));</span>
+<span class="w">  </span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">pid_t</span><span class="w"> </span><span class="nf">Fork</span><span class="p">(){</span>
+<span class="w">  </span><span class="kt">pid_t</span><span class="w"> </span><span class="n">pid</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">if</span><span class="p">((</span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fork</span><span class="p">())</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">    </span><span class="n">unix_error</span><span class="p">(</span><span class="s">&quot;Fork error&quot;</span><span class="p">)</span><span class="w"> </span>
+<span class="p">}</span>
+</code></pre></div></p>
+<blockquote>
+<p>其中
+fprintf -&gt; 函数根据指定的format(格式)发送信息(参数)到由stream(流)指定的文件.因此fprintf()可以使得信息输出到指定的文件</p>
+<p>stdout – 标准输出设备 (printf(“..”)) 同 stdout。
+stderr – 标准错误输出设备
+两者默认向屏幕输出。</p>
+<p>strerror 函数返回一个文本串，描述了和某个 errno 值相关联的错误。使用 strerror 来查看错误</p>
+</blockquote>
+<p>这是一个链接 <a href="https://blog.csdn.net/coolwriter/article/details/77868103">参考文章：fprintf()函数的运用</a></p>
+<div class="page"/>
+
+<h3 id="_8">进程控制</h3>
+<h4 id="id"><strong>ID与获取</strong></h4>
+<p><strong>进程id</strong></p>
+<p>每个进程都有一个唯一的非零正整数表示的进程 ID，叫做 PID(process id)
+有两个获取进程 ID 的函数：</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;sys/types.h&gt;</span>
+<span class="cp">#include</span><span class="cpf">&lt;unistd.h&gt;</span>
+
+<span class="kt">pid_t</span><span class="w"> </span><span class="nf">getpid</span><span class="p">();</span>
+<span class="kt">pid_t</span><span class="w"> </span><span class="nf">getppid</span><span class="p">();</span>
+</code></pre></div>
+<p><strong>进程组id</strong>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="nf">setpgid</span><span class="p">(</span><span class="kt">pid_t</span><span class="w"> </span><span class="n">pid</span><span class="p">,</span><span class="w"> </span><span class="kt">pid_t</span><span class="w"> </span><span class="n">pgid</span><span class="p">);</span>
+<span class="w">  </span><span class="kt">pid_t</span><span class="w"> </span><span class="nf">getpgrp</span><span class="p">(</span><span class="kt">pid_t</span><span class="w"> </span><span class="n">pid</span><span class="p">);</span>
+</code></pre></div></p>
+<p>进程组是一个或多个进程的集合;他们与同一作业相关联.每个进程组都有唯一的进程组ID（PGID），进程组ID（PGID）可以在用户层修改.比如，将某个进程添加到另一个进程组，就是使用setpgid()函数修改其进程组ID.</p>
+<p>进程组ID（PGID）也可以通过函数getpgrp()获得.通过fork()函数产生的子进程会继承它的父进程的进程组ID（PGID）.</p>
+<p>这是一个链接 <a href="https://blog.csdn.net/tuyerv/article/details/104000418?spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-104000418-blog-100362774.235%5Ev38%5Epc_relevant_anti_t3_base&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-104000418-blog-100362774.235%5Ev38%5Epc_relevant_anti_t3_base&amp;utm_relevant_index=2">参考文章：进程的基本属性</a></p>
+<h4 id="_9"><strong>进程的状态</strong></h4>
+<p>进程总是处于以下三种状态之一：
+1. <strong>运行</strong>：进程要么在 CPU 上执行，要么在等待被执行且最终被内核调度。
+2. <strong>停止</strong>：进程的执行被挂起且不会被调度。当收到 SIGSTOP, SIGTSTP, SIGTTIN, SIGTTOU 信号时，进程就会停止，直到收到一个 SIGCONT 信号时再次开始运行。
+3. <strong>终止</strong>：进程永远地停止了。进程有三种原因终止：
+   - 收到一个信号，该信号的默认行为是终止进程
+   - 从主进程返回
+   - 调用 exit 函数
+信号是一种软件中断的形式。</p>
+<p>这是一个链接 <a href="https://blog.csdn.net/eager7/article/details/8290937">参考文章：Linux信号列表</a></p>
+<h4 id="_10"><strong>进程的终止</strong></h4>
+<p><strong>exit函数</strong>
+通过调用<code>exit</code>函数，可以使得进程终止
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">exit</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">status</span><span class="p">);</span><span class="w"> </span><span class="c1">// status 指定进程终止时的退出状态。</span>
+</code></pre></div></p>
+<p>exit 函数以 status 退出状态来终止进程
+另一种设置退出状态的方法是从主程序中返回一个整数值。
+其中正常返回状态为0，错误时非0</p>
+<p>exit函数的特点：exit被调用一次，但永远不会返回
+exit is called once but never returns.</p>
+<h4 id="_11"><strong>进程的创建</strong></h4>
+<p><strong>fork函数</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/types.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+
+<span class="kt">pid_t</span><span class="w"> </span><span class="nf">fork</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span><span class="w"> </span><span class="c1">//子进程返回 0，父进程返回子进程的 PID，如果出错，返回 -1</span>
+</code></pre></div>
+<p>父进程通过调用<code>fork</code>函数创建一个新的运行的子进程。所有的进程的创建都是通过<code>fork</code>函数</p>
+<p><code>fork</code>函数只被调用一次，但是会返回两次：
+- 一次返回是在父进程中,父进程中返回子进程的 PID。
+- 一次是在新创建的子进程,子进程中返回 0。</p>
+<p>因为<code>fork</code>创建的子进程的 PID 总是非零的，所以可以根据返回值是否为 0 来分辨是当前是在父进程还是在子进程。</p>
+<p>子进程与父进程几乎完全相同：
+- 子进程得到与父进程用户级虚拟地址空间相同但独立的一份副本，包括代码段、数据段、堆、共享库、用户栈。
+- 子进程获得与父进程所有文件描述符相同的副本。这意味着子进程可以读写父进程打开的任何文件。
+- 子进程和父进程之间的最大区别在于 PID 不同。
+- 对于后面会提到阻塞信号，父进程对哪些信号进行了阻塞将也会复制到子进程中进行阻塞</p>
+<blockquote>
+<p>注意和重难点</p>
+<ol>
+<li>为什么调用一次fork会有两次返回值？<ul>
+<li>一次返回到父进程，一次返回到新创建的子进程 </li>
+</ul>
+</li>
+<li>不论子进程还是父进程，它的返回点都是调用 fork 函数的地方，因此在 fork 函数调用之前的部分只会在父进程中执行，而不会在子进程中执行。</li>
+<li><strong>并发执行</strong>：父进程和子进程是并发执行的独立进程，内核能够以任意方式会交替执行它们的逻辑控制流中的指令。<strong>作为程序员，我们决不能对不同进程中的指令的交替执行做任何假设</strong></li>
+<li>子进程会继承一份父进程被要求阻塞的信号，但是是复制一份，不是用一份</li>
+<li>对于流程图上的，我们只能确定一条线上的执行顺序，而决定不了两条线上的执行顺序
+<img alt="image-20230709201545751" src="./assets/image-20230709201545751.png" /></li>
+</ol>
+</blockquote>
+<h4 id="_12"><strong>进程的回收</strong></h4>
+<p>当一个进程终止时，内核并不会立即把它删除。相反，进程被保持在一种已终止的状态中，直到被它的父进程回收。
+当父进程回收已终止的子进程时，内核将子进程的退出状态传递给父进程，然后清除子进程。</p>
+<p><strong>僵死进程</strong>
+一个终止了但还未被回收的进程。
+即使僵死子进程没有运行，到那时它们仍然消耗系统的内存资源</p>
+<p><strong>init进程</strong>
+系统启动时内核会创建一个 init 进程（关于init的创建可以去看shell部分），它的 PID 为 1，不会终止，是所有进程的祖先，只有当整个系统关闭的时候才会终止。</p>
+<p>如果一个父进程终止了，init 进程会成为它的孤儿进程的养父。init 进程会负责回收没有父进程的僵死子进程。
+长时间没有运行的程序，总是应该回收僵死子进程。即使僵死子进程没有运行，也在消耗系统的内存资源。</p>
+<p><strong>回收(Reaping)</strong>
+1. 由父进程对终止的子进程执行 <code>wait</code>或<code>waitpid</code>函数
+2. 通过<code>wait</code>或<code>waitpid</code>函数子进程给父进程退出状态信息
+3. 内核删除僵尸子进程</p>
+<p>如果父进程在没有回收子进程的情况下终止了，那么孤儿进程兼备init进程回收
+并且当在长时间运行的进程中时需要显示回收，例如shell和服务器
+在这种情况下，服务器可能创建数百万个子进程，每个子进程终止的时候都可能产生很多的僵尸进程，将占用大量内存空间，即内存泄漏</p>
+<blockquote>
+<p><strong>进程终止和被清理详情</strong> 
+在 Unix 和 Linux 系统中，进程终止的清理工作分为两个阶段：进程终止阶段和进程清理阶段。</p>
+<p>进程终止阶段：
+1. 子进程在执行完成后，会发送一个 SIGCHLD 信号给其父进程。这是一个标准的 Unix 信号，用于告知父进程，子进程已经结束。
+2. 子进程的大部分资源，如内存和文件描述符，都会被操作系统立即回收。但是，操作系统会保留一些关于子进程的信息，如其进程 ID、终止状态、运行时间等。此时，子进程成为了僵尸进程。</p>
+<p>进程清理阶段：
+1. 父进程通过调用 <code>wait()</code> 或 <code>waitpid()</code> 函数，来获取子进程的终止状态。<strong>这两个函数也会告知操作系统，父进程已经收到了子进程结束的消息。</strong>
+2. 当 <code>wait()</code> 或 <code>waitpid()</code> 函数返回时，操作系统会删除所有关于已经结束的子进程的剩余信息，这就完成了子进程的清理工作。</p>
+<p>所以，“自动”这个词是指操作系统内核在父进程调用 <code>wait()</code> 或 <code>waitpid()</code> 函数并从中返回后，会自动完成对子进程的清理工作。这个过程是由操作系统自动完成的，而不需要程序员编写额外的代码来完成。</p>
+<p>需要注意的是，如果父进程没有调用 <code>wait()</code> 或 <code>waitpid()</code>，子进程就会保持僵尸状态。如果父进程在此之前结束了，子进程将被 init 进程接管，<strong>而 init 进程会定期调用 <code>wait()</code> 函数来清理任何已经结束的子进程。</strong></p>
+</blockquote>
+<p><strong>waitpid函数</strong>
+wait for process to change state</p>
+<p>waitpid函数可以帮助父进程知道自己创建的子进程何时结束，进而做出一些响应</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/types.h&gt;</span><span class="c1"> </span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/wait.h&gt;</span>
+
+<span class="kt">pid_t</span><span class="w"> </span><span class="nf">waitpid</span><span class="p">(</span><span class="kt">pid_t</span><span class="w"> </span><span class="n">pid</span><span class="p">,</span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">status</span><span class="p">,</span><span class="kt">int</span><span class="w"> </span><span class="n">options</span><span class="p">);</span>
+</code></pre></div>
+<p>如果在调用waitpid()函数时，当指定等待的子进程已经停止运行或结束了，则waitpid()会立即返回；但是如果子进程还没有停止运行或结束，则调用waitpid()函数的父进程则会被阻塞，暂停运行。</p>
+<p><strong>waitpid函数的第一个参数<code>pid_t pid</code></strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">参数</th>
+<th style="text-align: center;">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">pid &lt; -1</td>
+<td style="text-align: center;">等待进程组号为 pid绝对值 的所有子进程</td>
+</tr>
+<tr>
+<td style="text-align: center;">pid == -1</td>
+<td style="text-align: center;">等待任何一个子进程退出，没有任何限制，此时waitpid和wait的作用一模一样</td>
+</tr>
+<tr>
+<td style="text-align: center;">pid == 0</td>
+<td style="text-align: center;">等待同一个进程组中的任何子进程，如果子进程已经加入了别的进程组，waitpid不会对它做任何理睬</td>
+</tr>
+<tr>
+<td style="text-align: center;">pid &gt; 0</td>
+<td style="text-align: center;">只等待进程ID等于pid的子进程，不管其它已经有多少子进程运行结束退出了，只要指定的子进程还没有结束，waitpid就会一直等下去</td>
+</tr>
+</tbody>
+</table>
+<p><strong>waitpid函数的第二个参数<code>int *status</code></strong></p>
+<p>the state change can including</p>
+<ul>
+<li>the child is terminated exit(0)</li>
+<li>the child is stopped by signal</li>
+<li>the child is resume by a signal</li>
+</ul>
+<p>这个参数将保存子进程的状态信息，有了这个信息父进程就可以了解子进程为什么会推出，是正常推出还是出了什么错误。
+如果status不是空指针，则状态信息将被写入器指向的位置。
+当然，如果不关心子进程为什么推出的话，也可以传入空指针。
+Linux提供了一些非常有用的宏来帮助解析这个状态信息，这些宏都定义在sys/wait.h头文件中。主要有以下几个：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">参数</th>
+<th style="text-align: center;">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">WIFEXITED(status)</td>
+<td style="text-align: center;">如果子进程正常结束，它就返回真；否则返回假。</td>
+</tr>
+<tr>
+<td style="text-align: center;">WEXITSTATUS(status)</td>
+<td style="text-align: center;">如果WIFEXITED(status)为真，则可以用该宏取得子进程exit()返回的结束代码。</td>
+</tr>
+<tr>
+<td style="text-align: center;">WIFSIGNALED(status)</td>
+<td style="text-align: center;">如果子进程因为一个未捕获的信号而终止，它就返回真；否则返回假。</td>
+</tr>
+<tr>
+<td style="text-align: center;">WTERMSIG(status)</td>
+<td style="text-align: center;">如果WIFSIGNALED(status)为真，则可以用该宏获得导致子进程终止的信号代码</td>
+</tr>
+<tr>
+<td style="text-align: center;">WIFSTOPPED(status)</td>
+<td style="text-align: center;">如果当前子进程被暂停了，则返回真；否则返回假</td>
+</tr>
+<tr>
+<td style="text-align: center;">WSTOPSIG(status)</td>
+<td style="text-align: center;">如果WIFSTOPPED(status)为真，则可以使用该宏获得导致子进程暂停的信号代码</td>
+</tr>
+</tbody>
+</table>
+<p><strong>waitpid函数的第三个参数<code>int options</code></strong></p>
+<p>参数options提供了一些另外的选项来控制waitpid()函数的行为。如果不想使用这些选项，则可以把这个参数设为0。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">参数</th>
+<th style="text-align: center;">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">WNOHANG</td>
+<td style="text-align: center;">如果pid指定的子进程没有结束，则waitpid()函数立即返回0，而不是阻塞在这个函数上等待；如果结束了，则返回该子进程的进程号</td>
+</tr>
+<tr>
+<td style="text-align: center;">WUNTRACED</td>
+<td style="text-align: center;">如果WIFEXITED(status)为真，则可以用该宏取得子进程exit()返回的结束代码。</td>
+</tr>
+<tr>
+<td style="text-align: center;">WCONTINUED</td>
+<td style="text-align: center;">如果子进程从暂停状态被恢复成运行状态，则立即返回</td>
+</tr>
+</tbody>
+</table>
+<p>这些参数可以用“|”运算符连接起来使用。
+如果waitpid()函数执行成功，则返回子进程的进程号；如果有错误发生，则返回-1，并且将失败的原因存放在errno变量中。</p>
+<p>失败的原因主要有
+- 没有子进程（errno设置为ECHILD
+- 调用被某个信号中断（errno设置为EINTR）
+- 选项参数无效（errno设置为EINVAL）</p>
+<p>如果像这样调用waitpid函数：waitpid(-1, status, 0)，这此时waitpid()函数就完全退化成了wait()函数。</p>
+<p>the value options is an OR of zero or more of following constant</p>
+<blockquote>
+<p>父进程不会等待着子进程结束后再继续，而是收到子进程结束的信号后再回收子进程</p>
+<p><code>waitpid()</code>函数的 <code>WNOHANG</code> 选项正是用于这种情况的。使用 <code>WNOHANG</code> 选项，如果指定的子进程还没有结束，那么 <code>waitpid()</code> 函数会立即返回0，而不会阻塞。</p>
+<p>如果你想在子进程结束时得到通知，可以使用 <code>SIGCHLD</code> 信号。当一个子进程结束时，它会向父进程发送 <code>SIGCHLD</code> 信号。你可以在父进程中捕获这个信号，并在信号处理函数中调用 <code>waitpid()</code>，这样你就可以得知哪个子进程已经结束，并且收割这个子进程。</p>
+<p>以下是一个基本的示例，演示了如何使用 <code>SIGCHLD</code> 信号和 <code>waitpid()</code> 函数：</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/wait.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;signal.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">sigchld_handler</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">s</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="n">waitpid</span><span class="p">(</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">WNOHANG</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">sigaction</span><span class="w"> </span><span class="n">sa</span><span class="p">;</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="n">sa</span><span class="p">.</span><span class="n">sa_handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">sigchld_handler</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sa</span><span class="p">.</span><span class="n">sa_mask</span><span class="p">);</span>
+<span class="w">    </span><span class="n">sa</span><span class="p">.</span><span class="n">sa_flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SA_RESTART</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">SA_NOCLDSTOP</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">sigaction</span><span class="p">(</span><span class="n">SIGCHLD</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">sa</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">perror</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="c1">// 在此处创建子进程</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 父进程的其余部分</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>在这个例子中，<code>sigchld_handler</code> 函数是 <code>SIGCHLD</code> 信号的处理函数。当 <code>SIGCHLD</code> 信号到达时，这个函数就会被调用，然后它会调用 <code>waitpid()</code> 来收割已经结束的子进程。这样，父进程就可以在子进程结束时得到通知，而不需要阻塞等待子进程的结束。</p>
+</blockquote>
+<p>这是一个链接 <a href="https://blog.csdn.net/Roland_Sun/article/details/32084825">参考文章：Linux中waitpid()函数的用法</a></p>
+<h4 id="_13"><strong>子进程加载并运行程序</strong></h4>
+<p>在子进程载入其他的程序，就需要使用 <code>execve</code> 函数，或者用<code>execvp</code>，除非有错误，否则这两个函数都不会有返回值</p>
+<p><strong>ececve函数</strong></p>
+<p>execve 函数在当前进程的上下文中加载并运行一个新程序（是程序不是进程）。</p>
+<p><div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">execve</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">filename</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[],</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">envp</span><span class="p">[]);</span>
+</code></pre></div>
+execve 函数功能：加载并运行可执行目标文件 filename，并带一个参数列表 argv 和一个环境变量列表 envp。</p>
+<p>execve 调用一次并从不返回（区别于 fork 调用一次返回两次）。</p>
+<p>参数列表和变量列表：
+- 参数列表：argv 指向一个以 null 结尾的指针数组，其中<strong>每个指针</strong>指向一个<strong>字符串</strong>。
+- 环境变量列表：envp 指向一个以 null 结尾的指针数组，其中<strong>每个指针</strong>指向一个<strong>环境变量字符串</strong>，每个串都是形如 “name=value” 的名字-值对。</p>
+<p><img alt="" src="assets/2023-07-14-00-43-00.png" /></p>
+<p>execve函数的执行过程
+execve 函数调用加载器加载了 filename 后，设置用户栈，<strong>并将控制传递给新程序的主函数（即 main 函数）</strong>。</p>
+<p><strong>main函数</strong>
+main 函数有以下形式的原型，两种是等价的。</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">envp</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[],</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">envp</span><span class="p">[]);</span>
+</code></pre></div>
+<p>main 函数有三个参数：
+1. <code>argc</code>：给出 <code>argv[ ]</code> 数组中非空指针的数量。
+2. <code>argv</code>：指向 <code>argv[ ]</code> 数组中的第一个条目。
+3. <code>envp</code>：指向 <code>envp[ ]</code> 数组中的第一个条目。</p>
+<p>argc 和 argv 的值都是从命令行中获取的，如果命令行中只有该可执行文件的名字，没有其他参数，则 argc=1，argv 的第一个元素的值即为该可执行文件的文件名（包含路径）
+注意 argv[] 数组和 envp 数组最后一个元素都是 NULL，可以使用 NULL 作为循环终止条件来遍历数组。</p>
+<p><img alt="" src="assets/2023-07-14-00-48-24.png" /></p>
+<p><strong>操作环境变量数组的函数</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
+
+<span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="nf">getenv</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">name</span><span class="p">);</span><span class="w">  </span>
+<span class="c1">//在环境变量列表中搜索字符串 &quot;name=value&quot;，如果搜到了返回指向 value 的指针，否则返回 NULL</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">setenv</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">newvalue</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">overwrite</span><span class="p">);</span><span class="w">  </span>
+<span class="c1">//若成功返回 0，否则返回 -1。</span>
+<span class="c1">//如果环境变量列表中包含一个形如 ”name=value&quot; 的字符串，setnv 会用 newvalue 替代原来的 value</span>
+<span class="c1">//如果不存在，直接添加一个 &quot;name=newvalue&quot; 到数组中。</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">unsetenv</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">name</span><span class="p">);</span><span class="w"> </span>
+<span class="c1">//如果环境变量列表中包含一个形如 ”name=value&quot; 的字符串,unsetnv 会删除它。</span>
+</code></pre></div>
+<p><strong>利用fork和execve运行程序</strong></p>
+<p>像 Unix shell 和 Web 服务器这样程序大量使用了 fork 和 execve 函数</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Fork</span><span class="p">())</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w">    </span><span class="c1">//创建一个子进程</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="cm">/* Child runs user job */</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">execve</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">argv</span><span class="p">,</span><span class="w"> </span><span class="n">environ</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="c1">//在子进程中执行所请求的程序</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="c1">// 只有当execve出现错误的时候才会运行到这里</span>
+<span class="w">                </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s: Command not found.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="w">                </span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+</code></pre></div>
+<div class="page"/>
+
+<h3 id="_14">信号</h3>
+<p>A signal is a small message that notifies a process that an event of some type has occurred in the system</p>
+<p><img alt="image-20230710123322548" src="./assets/image-20230710123322548.png" /></p>
+<p>信号是一种更高层次的软件形式的异常，它允许进程和内核中断其他进程。</p>
+<p>一个信号就是一条消息，它通知进程系统中发生了某件事情。</p>
+<p>每一个信号类型所包含的信息只是一个整数id</p>
+<p>每种信号类型都对应于某种系统事件。信号可以简单分为两类：</p>
+<ol>
+<li>一类信号对应低层的硬件异常，此类异常由内核异常处理程序处理，对用户进程不可见。但是当发生异常，会通过信号通知用户进程发生了异常。</li>
+<li>例子：一个进程试图除以 0，内核会发送给他一个 SIGFPE 信号。</li>
+<li>一类信号对应于内核或其他用户进程中叫高层的软件事件。</li>
+<li>例子：用户按下 Ctrl+C，内核会发送一个 SIGINT 信号给这个前台进程组中的每个进程。一个进程可以通过向另一个进程发送 SIGKILL 信号强制终止它。</li>
+</ol>
+<p><img alt="" src="assets/2023-07-14-01-02-03.png" /></p>
+<h4 id="_15">信号术语</h4>
+<p>传送一个信号到目的进程包含两个步骤：
+1. 发送信号。内核通过<strong>更新目的进程上下文中的某个状态</strong>，发送一个信号给目的进程。
+2. 接收信号。当目的进程被内核强迫以某种方式对信号的发送做出反应时，就接受了信号。进程可以忽略、终止或通过执行一个叫做信号处理程序的用户层函数捕获这个信号。</p>
+<p>发送信号有两种原因：
+1. 内核检测到一个系统事件，比如除零错误或子进程终止。
+2. 一个进程调用了 kill 函数，显式地要求内核发送一个信号给目的进程。一个进程可以发送信号给自己。</p>
+<p><strong>待处理信号</strong>
+待处理信号是指发出但没有被接收的信号。</p>
+<p>一种类型最多只会有一个待处理信号。如果一个进程已经有一个类型为 k 的待处理信号，接下来发给他的类型为 k 的信号都会直接丢弃。</p>
+<p>进程可以有选择地阻塞接收某种信号。当一种信号被阻塞，它仍可以发送，但是产生的待处理信号不会被接收。</p>
+<p>一个待处理信号最多只能被接收一次。内核为每个进程在 pending 位向量中维护着待处理信号的集合，在 blocked 位向量中维护着被阻塞的信号集合。</p>
+<p>只要传送了一个类型为 k 的信号，内核就会设置 pending 中的第 k 位，只要接收了一个类型为 k 的信号，内核就会清除 pending 中的第 k 位。</p>
+<h4 id="-kill">发送信号--Kill</h4>
+<p><strong>用/bin/kill程序发送信号</strong></p>
+<p>kill 程序向另外的进程发送任意的信号。</p>
+<blockquote>
+<p>注意：不要把kill函数理解为 杀死一个进程，虽然确实可以用于杀死一个进程，即信号 9</p>
+<p><div class="highlight"><pre><span></span><code><span class="n">linux</span><span class="o">&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">kill</span><span class="w"> </span><span class="mi">-9</span><span class="w"> </span><span class="mi">15213</span><span class="w">      </span><span class="err">#</span><span class="w"> </span><span class="n">发送信号9</span><span class="err">（</span><span class="n">SIGKILL</span><span class="err">）</span><span class="n">给进程</span><span class="w"> </span><span class="mi">15213</span>
+<span class="n">linux</span><span class="o">&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">kill</span><span class="w"> </span><span class="mi">-9</span><span class="w"> </span><span class="mi">-15213</span><span class="w">     </span><span class="err">#</span><span class="w"> </span><span class="n">发送信号9</span><span class="err">（</span><span class="n">SIGKILL</span><span class="err">）</span><span class="n">给进程组</span><span class="w"> </span><span class="mi">15213</span><span class="w"> </span><span class="n">中的每个进程</span>
+</code></pre></div>
+这里面使用的时kill程序的完成路径，linux常用的程序都在这个目录下
+比如 ls -&gt; /bin/ls </p>
+</blockquote>
+<p><strong>用kill函数发送信号</strong></p>
+<p>进程可以通过调用 kill 函数发送信号给其他进程（包括自己）
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;sys/types.h&gt;</span>
+<span class="cp">#include</span><span class="cpf">&lt;signal.h&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">kill</span><span class="p">(</span><span class="kt">pid_t</span><span class="w"> </span><span class="n">pid</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">sig</span><span class="p">);</span><span class="w">  </span><span class="c1">//若成功则返回 0，若错误则返回 -1</span>
+</code></pre></div></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">参数</th>
+<th style="text-align: center;">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">pid &lt; -1</td>
+<td style="text-align: center;">进程组号为 pid绝对值 的所有子进程</td>
+</tr>
+<tr>
+<td style="text-align: center;">pid == -1</td>
+<td style="text-align: center;">所有进程</td>
+</tr>
+<tr>
+<td style="text-align: center;">pid == 0</td>
+<td style="text-align: center;">同一个进程组中的任何子进程</td>
+</tr>
+<tr>
+<td style="text-align: center;">pid &gt; 0</td>
+<td style="text-align: center;">进程ID等于pid的子进程</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">参数</th>
+<th style="text-align: center;">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">sig</td>
+<td style="text-align: center;">要发送的信号的序号（见前面的图）</td>
+</tr>
+</tbody>
+</table>
+<p>下面是一个简单的示例，父进程通过发送 <code>SIGINT</code> 信号来终止正在无限循环的子进程。
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">forkandkill</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">pid_t</span><span class="w"> </span><span class="n">pid</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">child_status</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">pid</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fork</span><span class="p">())</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">            </span><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">;</span><span class="w">  </span><span class="c1">// 死循环</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Killing process %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">pid</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">        </span><span class="n">kill</span><span class="p">(</span><span class="n">pid</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">SIGINT</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">pid_t</span><span class="w"> </span><span class="n">wpid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">child_status</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">WIFEXITED</span><span class="p">(</span><span class="n">child_status</span><span class="p">))</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Child %d terminated with exit status %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">wpid</span><span class="p">,</span><span class="w"> </span><span class="n">WEXITSTATUS</span><span class="p">(</span><span class="n">child_status</span><span class="p">));</span>
+<span class="w">        </span><span class="k">else</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Child %d terminated abnormally</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">wpid</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p><strong>从键盘发送信号</strong></p>
+<p>在键盘上输入 Ctrl+C 会导致内核发送一个 SIGINT 信号到前台进程组中的每个进程，默认情况下会终止前台作业。</p>
+<p>输入 Ctrl+Z 会发送一个 SIGTSTP 信号到前台进程组中的每个进程，默认情况下会停止（挂起）前台作业。</p>
+<h4 id="-sigint_handler">接收信号--sigint_handler</h4>
+<p>当内核把进程 p 从内核模式切换到用户模式时（比如从系统调用返回），他会检查进程 p 的未被阻塞的待处理信号的集合。</p>
+<p>如果集合为空，内核就将控制传递到 p 的逻辑控制流中的下一条指令；
+如果集合非空，内核就选择集合中的某个信号（通常是最小的 k），并强制 p 接收信号 k。</p>
+<p>进程 p 收到信号会触发 p 采取某种行为，等进程完成了这个行为，控制就传递回 p 的逻辑控制流中的下一条指令。</p>
+<p>所有的上下文切换都是通过调用某个异常处理器(exception handler)完成的，内核会计算对易于某个进程 p 的 pnb 值：<code>pnb = pending &amp; ~blocked</code></p>
+<ul>
+<li>
+<p>如果 <code>pnb == 0</code>，那么就把控制交给进程 p 的逻辑流中的下一条指令</p>
+</li>
+<li>
+<p>如果
+  <div class="highlight"><pre><span></span><code>pnb != 0
+</code></pre></div></p>
+</li>
+<li>
+<p>选择 <code>pnb</code> 中最小的非零位 k，并强制进程 p 接收信号 k</p>
+</li>
+<li>接收到信号之后，进程 p 会执行对应的动作</li>
+<li>对 <code>pnb</code> 中所有的非零位进行这个操作</li>
+<li>最后把控制交给进程 p 的逻辑流中的下一条指令</li>
+</ul>
+<p><strong>signal 函数</strong></p>
+<p>进程可以通过 signal 函数修改和信号相关联的默认行为，其中 SIGSTOP 和 SIGKILL 的默认行为不能修改</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;signal.h&gt;</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="kt">sighandler_t</span><span class="p">)(</span><span class="kt">int</span><span class="p">);</span><span class="w"> </span>
+
+<span class="kt">sighandler_t</span><span class="w"> </span><span class="nf">signal</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">signum</span><span class="p">,</span><span class="w"> </span><span class="kt">sighandler_t</span><span class="w"> </span><span class="n">handler</span><span class="p">);</span><span class="w"> </span>
+<span class="c1">//若成功返回指向前次处理程序的指针，若出错则返回 SIG_ERR（不设置 errno）。</span>
+</code></pre></div>
+<p>signal 函数接受两个参数：信号值和函数指针，可以通过下列三种方法之一来改变和信号 signum 相关联的行为：
+1. 如果 handler 是 SIG_IGN，那么忽略类型为 signum 的信号。SIG_IGN 是 signal.h 中定义的一个宏。
+2. 如果 handler 是 SIG_DFL，那么类型为 signum 的信号行为恢复为默认行为。SIG_DEF 是 signal.h 中定义的一个宏。
+3. 如果 hanlder 是用户定义的函数的地址，这个函数就被称为信号处理程序。只要进程接收到一个类型为 signum 的信号，就会调用这个程序。通过把处理程序的地址传递到 signal 函数来改变默认行为，这叫做设置信号处理程序。调用信号处理程序被称作捕获信号。执行信号处理程序被称作处理信号。</p>
+<blockquote>
+<p>以下是一个关于信号处理程序的例子,
+把键盘上通过 ctrl+c 传入的信号后产生的结果从停止前台程序改为输出"Caught SIGINT!"
+<code>#include "csapp"
+void sigint_handler(int sig)  //定义了一个信号处理程序
+{
+   printf("Caught SIGINT!\n");
+   exit(0);
+}
+int main()
+{
+   /* Install the SIGINT handler */
+   if(signal(SIGINT, sigint_handler)) == SIGERR)
+       unix_error("signal error");
+   pause(); // wait for the receipt of signal
+   return 0;    
+}</code></p>
+</blockquote>
+<p><strong>signal的问题</strong>
+不同版本的Unix可能有不同的信号处理语义。
+1. 一些早期unix系统,在捕获信号后会将动作恢复为默认,所以不得不每次都重新挂载一次。每当处理程序调用,都得通过处理程序自身里调用signal重新挂载它 
+2. 某些系统中,当出现慢速系统调用时,比如 read ,内核不会等待数据的到来,它会向磁盘控制器发送请求,然后调度到其他进程去,read只有在数据到达时才会被调用,数据到达时会触发中断. 在有些系统中,如果进程慢系统调用结束前收到了一个信号,内核会中止该系统调用,并系统调用返回一从个错误.在用户的视角来看使用了read调用,它以EINTR返回,即errno == EINTR。
+3. 有些系统不会阻止正在处理的类型的信号。</p>
+<p><strong>解决方案--sigaction</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">handler_t</span><span class="w"> </span><span class="o">*</span><span class="nf">Signal</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">signum</span><span class="p">,</span><span class="w"> </span><span class="n">handler_t</span><span class="w"> </span><span class="o">*</span><span class="n">handler</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">sigaction</span><span class="w"> </span><span class="n">action</span><span class="p">,</span><span class="w"> </span><span class="n">old_action</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">action</span><span class="p">.</span><span class="n">sa_handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">handler</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">action</span><span class="p">.</span><span class="n">sa_mask</span><span class="p">);</span><span class="w"> </span><span class="cm">/* Block sigs of type being handled */</span>
+<span class="w">    </span><span class="n">action</span><span class="p">.</span><span class="n">sa_flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SA_RESTART</span><span class="p">;</span><span class="w"> </span><span class="cm">/* Restart syscalls if possible */</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sigaction</span><span class="p">(</span><span class="n">signum</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">action</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">old_action</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">        </span><span class="n">unix_error</span><span class="p">(</span><span class="s">&quot;Signal error&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">old_action</span><span class="p">.</span><span class="n">sa_handler</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="_16">阻塞信号</h4>
+<p>Linux 提供两种阻塞信号的机制：
+1. 隐式阻塞机制
+    - 内核默认阻塞任何当前处理程序正在处理信号类型的待处理的信号。
+    - 当一个信号的处理函数正在执行时，该信号会被系统自动阻塞，直到信号处理函数执行完毕，防止同一个信号的重复处理导致的可能问题。
+    - 假设程序捕获了信号s，当前正在运行程序S。如果发送给改进程另一个信号s，那么知道处理程序S返回，s会变成待处理而没被接收
+2. 显式阻塞机制。应用程序可以使用 sigprocmask 函数和它的辅助函数，明确地阻塞和解除阻塞选定的信号。</p>
+<p><strong>sigprocmask函数</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;signal.h&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">sigpromask</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">how</span><span class="p">,</span><span class="w"> </span><span class="kt">sigset_t</span><span class="w"> </span><span class="o">*</span><span class="n">set</span><span class="p">,</span><span class="w"> </span><span class="kt">sigset_t</span><span class="w"> </span><span class="o">*</span><span class="n">oldset</span><span class="p">);</span>
+</code></pre></div>
+<p>sigprocmask 函数改变当前阻塞的信号集合（blocked 位向量），具体行为依赖 how 的值：
+1. SIG_BLOCK：把 set 中的信号<strong>添加</strong>到 blocked 中（blocked = blocked | set）。
+2. SIG_UNBLOCK：从 blocked 中<strong>删除</strong> set 中的信号（blocked = blocked &amp; ~set)。
+3. SIG_SETMASK：block == set。</p>
+<p>如果 oldset 非空，blocked 位向量之前的值保存在 oldset 中。</p>
+<p><strong>其他辅助函数</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;signal.h&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">sigemptyset</span><span class="p">(</span><span class="kt">sigset_t</span><span class="w"> </span><span class="o">*</span><span class="n">set</span><span class="p">);</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">sigfillset</span><span class="p">(</span><span class="kt">sigset_t</span><span class="w"> </span><span class="o">*</span><span class="n">set</span><span class="p">);</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">sigaddset</span><span class="p">(</span><span class="kt">sigset_t</span><span class="w"> </span><span class="o">*</span><span class="n">set</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">signum</span><span class="p">);</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">sigdelset</span><span class="p">(</span><span class="n">segset_t</span><span class="w"> </span><span class="o">*</span><span class="n">set</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">signum</span><span class="p">);</span>
+</code></pre></div>
+<p>辅助函数用来对 set 信号集合进行操作：
+sigemptyset 初始化 set 为空集合；
+sigfillset 把每个信号都添加到 set 中；
+sigaddset 把信号 signum 添加到 set 中；
+sigdelset 把信号 signum 从 set 中删除。如果 signum 是 set 的成员返回 1，不是返回 0。</p>
+<p><strong>一个临时阻塞 SIGINT 信号的例子</strong>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;signal.h&gt;</span>
+<span class="kt">sigset_t</span><span class="w"> </span><span class="n">mask</span><span class="p">,</span><span class="w"> </span><span class="n">prev_mask</span><span class="p">;</span>
+
+<span class="n">Sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mask</span><span class="p">);</span><span class="w">   </span><span class="c1">// 初始化为空</span>
+<span class="n">Sigaddset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mask</span><span class="p">,</span><span class="w"> </span><span class="n">SIGINT</span><span class="p">);</span><span class="w">  </span><span class="c1">//将 SIGINT 信号添加到 set 集合中</span>
+
+<span class="n">Sigprocmask</span><span class="p">(</span><span class="n">SIG_BLOCK</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mask</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">prev_mask</span><span class="p">);</span><span class="w">  </span><span class="c1">//阻塞 SIGINT 信号，并把之前的阻塞集合保存到 prev_mask 中。</span>
+<span class="p">...</span><span class="w">                                         </span><span class="c1">//这部分的代码不会被 SIGINT 信号所中断</span>
+<span class="n">Sigprocmask</span><span class="p">(</span><span class="n">SIG_SETMASK</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">prev_mask</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span><span class="w"> </span><span class="c1">//恢复之前的阻塞信号，取消对 SIGINT 的阻塞</span>
+</code></pre></div></p>
+<div class="page"/>
+
+<h3 id="shell">Shell</h3>
+<p>我们只有一种创建进程的方法--fork</p>
+<p><img alt="" src="assets/2023-07-14-02-54-49.png" /></p>
+<p>当系统启动的时候，创建了init进程pid == 1 ，系统上的其他进程都是init进程的子进程</p>
+<p>init进程启动的时候会创建守护进程<code>daemons</code>
+守护进程一般是一个长期运行的程序，通常用来提供服务
+比如说web server 或其他哪些你希望一直在系统上运行的服务</p>
+<p>这是一个链接 <a href="https://www.ruanyifeng.com/blog/2016/02/linux-daemon.html">参考文章：Linux 守护进程的启动方法</a></p>
+<p>最后会创建登录进程 <code>login shell</code>它为用户提供了命令行接口
+所以当你登录linux的时候，最后会得到一个<code>login shell</code>，他希望你输入命令
+比如说输入ls命令，我们其实是在要求shell运行名为ls(位于/bin/ls)的可执行程序，接下来shell会创建一个子进程，在这个子进程里面执行程序</p>
+<p>这是一个链接 <a href="https://zhuanlan.zhihu.com/p/533635132">参考文章：可执行程序</a></p>
+<p>所以shell这个程序和其他的程序没啥区别，他们以用户的身份执行程序
+在linux中，默认的shell叫做bash,如今有一个更友好的交互式shell名为 fish</p>
+<div class="page"/>
+
+<h2 id="_17"><strong>参考资料</strong></h2>
+<p><strong>CMU官方资料</strong>
+这是一个链接 <a href="https://www.bilibili.com/video/BV1iW411d7hd/?spm_id_from=333.337.search-card.all.click&amp;vd_source=664d223fe65c6706d11206b7416f5b92">参考资料：CMU课程链接</a></p>
+<p>这是一个链接 <a href="http://csapp.cs.cmu.edu/3e/shlab.pdf">参考资料：shlab要求</a></p>
+<p>这是一个链接 <a href="http://www.cs.cmu.edu/afs/cs/academic/class/15213-f15/www/schedule.html">参考资料：CMU课程ppt和pdf</a></p>
+<p>这是一个链接 <a href="http://csapp.cs.cmu.edu/3e/labs.html">参考资料：CMU实验资料下载</a></p>
+<p>这是一个链接 <a href="http://csapp.cs.cmu.edu/3e/code.html">参考资料：CMU代码资料下载 如<code>csapp.h</code>和<code>csapp.c</code></a></p>
+<p><strong>其他资料</strong></p>
+<p>这是一个链接 <a href="https://wdxtub.com/work/">参考资料：不周山作品集</a></p>
+<p>这是一个链接 <a href="https://zhuanlan.zhihu.com/p/455061631">参考资料：《深入理解计算机系统（CSAPP）》全书学习笔记（详细）</a></p>
+<p>这是一个链接 <a href="https://www.jianshu.com/p/43533495d30a">参考资料：CSAPP之详解ShellLab（简书）</a></p>
+<p>这是一个链接 <a href="https://www.bilibili.com/video/BV1EF411h791/?spm_id_from=333.999.0.0&amp;vd_source=664d223fe65c6706d11206b7416f5b92">参考资料：shell Lab 实现 CMU 详细讲解 shell(bilibili)</a></p>
+<p>这是一个链接 <a href="https://www.bilibili.com/video/BV1RK4y1R7Kf?p=8&amp;vd_source=664d223fe65c6706d11206b7416f5b92">参考资料:深入理解计算机系统 - CSAPP重点导读(bilibili)</a></p>
+<p>这是一个链接 <a href="https://www.bilibili.com/video/BV1xF41147fB/?spm_id_from=333.999.0.0&amp;vd_source=664d223fe65c6706d11206b7416f5b92">参考资料：【CSAPP-深入理解计算机系统】8-1. 异常控制流(bilibili)</a></p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/devilran6" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top", "search.suggest", "search.highlight"], "search": "../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.aecac24b.min.js"></script>
+      
+        <script src="../../../js/custom.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      
+    
+  </body>
+</html>

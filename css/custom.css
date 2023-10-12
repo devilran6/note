@@ -1,0 +1,15 @@
+.toggle-code-btn {
+    background-color: #00d0ff;  // 蓝色的十六进制表示
+    color: #FFFFFF;  // 白色的十六进制表示
+    border: none;
+    padding: 5px 10px;
+    margin: 5px 0;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.toggle-code-btn:hover {
+    background-color: #0075d4;  // 深蓝色 (darkblue) 的十六进制表示
+}
+
+
