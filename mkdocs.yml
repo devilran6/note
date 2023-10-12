@@ -102,14 +102,16 @@ nav:
       - 字符串: ACM/Knowledge/字符串/字符串.md
       - DP: ACM/Knowledge/DP/换根dp.md
     - CF:
-      - div2_892: ACM/CF/div2_892.md
-      - div2_893: ACM/CF/div2_893.md
-      - div2_895: ACM/CF/div2_895.md
-      - div2_897: ACM/CF/div2_897.md
-      - div2_899: ACM/CF/div2_899.md
-      - div3_900: ACM/CF/div3_900.md
-      - div2_901: ACM/CF/div2_901.md
+      - edu_156: ACM/CF/edu_156.md
       - edu_155: ACM/CF/edu_155.md
+      - div2_901: ACM/CF/div2_901.md
+      - div3_900: ACM/CF/div3_900.md
+      - div2_899: ACM/CF/div2_899.md
+      - div2_897: ACM/CF/div2_897.md
+      - div2_895: ACM/CF/div2_895.md
+      - div2_893: ACM/CF/div2_893.md
+      - div2_892: ACM/CF/div2_892.md
+
     - 模拟vp:
       - ICPC 2023 香港: ACM/模拟vp/icpc2023xianggang.md
       - ICPC 2022-2023 Latin American: ACM/模拟vp/icpc2022Latin.md
