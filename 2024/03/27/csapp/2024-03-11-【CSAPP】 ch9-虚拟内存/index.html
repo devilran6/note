@@ -1,0 +1,144 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>【CSAPP】 ch9-虚拟内存 | Devil</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="https://unpkg.com/normalize.css"><link rel="stylesheet" type="text/css" href="https://unpkg.com/purecss/build/pure-min.css"><link rel="stylesheet" type="text/css" href="https://unpkg.com/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="https://unpkg.com/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="https://unpkg.com/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="https://unpkg.com/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="https://unpkg.com/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">【CSAPP】 ch9-虚拟内存</h1><a id="logo" href="/.">Devil</a><p class="description"></p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">【CSAPP】 ch9-虚拟内存</h1><div class="post-meta">2024-03-27<span> | </span><span class="category"><a href="/categories/OS/">OS</a><a href="/categories/OS/CSAPP/">CSAPP</a></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ch-9-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98"><span class="toc-number">1.</span> <span class="toc-text">ch-9 虚拟内存</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#9-1-%E7%89%A9%E7%90%86%E5%92%8C%E8%99%9A%E6%8B%9F%E5%AF%BB%E5%9D%80"><span class="toc-number">1.1.</span> <span class="toc-text">9.1 物理和虚拟寻址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-2-%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4"><span class="toc-number">1.2.</span> <span class="toc-text">9.2 地址空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-3-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E4%BD%9C%E4%B8%BA%E7%BC%93%E5%AD%98%E7%9A%84%E5%B7%A5%E5%85%B7"><span class="toc-number">1.3.</span> <span class="toc-text">9.3 虚拟内存作为缓存的工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E9%A1%B5%E5%92%8C%E7%89%A9%E7%90%86%E9%A1%B5"><span class="toc-number">1.3.1.</span> <span class="toc-text">虚拟页和物理页</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DRAM-%E5%92%8C-SRAM"><span class="toc-number">1.3.2.</span> <span class="toc-text">DRAM 和 SRAM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B5%E8%A1%A8"><span class="toc-number">1.3.3.</span> <span class="toc-text">页表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E4%B8%AD%EF%BC%9F"><span class="toc-number">1.3.4.</span> <span class="toc-text">命中？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E6%80%A7%E6%8B%AF%E6%95%91%E4%BA%86%E4%B8%96%E7%95%8C%EF%BC%81"><span class="toc-number">1.3.5.</span> <span class="toc-text">局部性拯救了世界！</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-4-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E4%BD%9C%E4%B8%BA%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E7%9A%84%E5%B7%A5%E5%85%B7"><span class="toc-number">1.4.</span> <span class="toc-text">9.4 虚拟内存作为内存管理的工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-5-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E4%BD%9C%E4%B8%BA%E5%86%85%E5%AD%98%E4%BF%9D%E6%8A%A4%E5%B7%A5%E5%85%B7"><span class="toc-number">1.5.</span> <span class="toc-text">9.5 虚拟内存作为内存保护工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-6-%E5%9C%B0%E5%9D%80%E7%BF%BB%E8%AF%91"><span class="toc-number">1.6.</span> <span class="toc-text">9.6 地址翻译</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%9C%B0%E5%9D%80%E7%BF%BB%E8%AF%91"><span class="toc-number">1.6.1.</span> <span class="toc-text">基本地址翻译</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TLB"><span class="toc-number">1.6.2.</span> <span class="toc-text">TLB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E7%BA%A7%E9%A1%B5%E8%A1%A8%EF%BC%88%E6%97%B6%E9%97%B4%E6%8D%A2%E7%A9%BA%E9%97%B4%EF%BC%81%EF%BC%89"><span class="toc-number">1.6.3.</span> <span class="toc-text">多级页表（时间换空间！）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E5%9C%B0%E5%9D%80%E7%BF%BB%E8%AF%91%E7%9A%84%E5%AE%9E%E4%BE%8B"><span class="toc-number">1.6.4.</span> <span class="toc-text">一个地址翻译的实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-7-%E6%A1%88%E4%BE%8B%E7%A0%94%E7%A9%B6"><span class="toc-number">1.7.</span> <span class="toc-text">9.7 案例研究</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-8-%E5%86%85%E5%AD%98%E6%98%A0%E5%B0%84"><span class="toc-number">1.8.</span> <span class="toc-text">9.8 内存映射</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B1%E4%BA%AB%E5%AF%B9%E8%B1%A1-%E7%A7%81%E6%9C%89%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.8.1.</span> <span class="toc-text">共享对象 &amp; 私有对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%8D%E7%9C%8B-fork"><span class="toc-number">1.8.2.</span> <span class="toc-text">再看 fork</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%8D%E7%9C%8B-execve"><span class="toc-number">1.8.3.</span> <span class="toc-text">再看 execve</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-mmap-%E5%87%BD%E6%95%B0%E7%9A%84%E7%94%A8%E6%88%B7%E7%BA%A7%E5%86%85%E5%AD%98%E6%98%A0%E5%B0%84"><span class="toc-number">1.8.4.</span> <span class="toc-text">使用 mmap 函数的用户级内存映射</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-9-%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="toc-number">1.9.</span> <span class="toc-text">9.9 动态内存分配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-10-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86"><span class="toc-number">1.10.</span> <span class="toc-text">9.10 垃圾收集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-11-C%E7%A8%8B%E5%BA%8F%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E4%B8%8E%E5%86%85%E5%AD%98%E6%9C%89%E5%85%B3%E7%9A%84%E9%94%99%E8%AF%AF"><span class="toc-number">1.11.</span> <span class="toc-text">9.11 C程序中常见的与内存有关的错误</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">1.12.</span> <span class="toc-text">Reference</span></a></li></ol></li></ol></div></div><div class="post-content"><h1 id="ch-9-虚拟内存"><a href="#ch-9-虚拟内存" class="headerlink" title="ch-9 虚拟内存"></a>ch-9 虚拟内存</h1><p>这一章将很好的展现计算机系统中&#x3D;&#x3D;硬件与软件相结合&#x3D;&#x3D;的特点，和虚拟内存空间只是一个字节数组！</p>
+<p>前半部分描述虚拟内存是如何工作的，后半部分描述应用程序是如何使用和管理虚拟内存的</p>
+<p><img src="/../../assets/image-20240311135437727.png"></p>
+<p>虚拟内存（Virtual Memory, VM）的引入：为了有效管理内存并且少出错，对主存进行抽象。</p>
+<ul>
+<li>缓存 - 虚拟内存将主存看成高速缓存，在主存中值保留活动区域</li>
+<li>统一 - 虚拟内存为每个进程提供了&#x3D;&#x3D;一致&#x3D;&#x3D;的地址空间，从而简化了内存管理</li>
+<li>隔离 - 虚拟内存保护了每个进程的地址空间不被其他进程破坏</li>
+</ul>
+<h2 id="9-1-物理和虚拟寻址"><a href="#9-1-物理和虚拟寻址" class="headerlink" title="9.1 物理和虚拟寻址"></a>9.1 物理和虚拟寻址</h2><p>&#x3D;&#x3D;物理寻址&#x3D;&#x3D;：<br>早期的 PC、数字信号处理器、嵌入式微控制器、Cray 超级计算机系统仍然使用物理寻址。</p>
+<p><img src="/../../assets/image-20240311213435685.png"></p>
+<p>&#x3D;&#x3D;虚拟寻址&#x3D;&#x3D;：<br>CPU 生成一个虚拟地址（Virtual Address，VA），之后虚拟地址通过&#x3D;&#x3D;硬件&#x3D;&#x3D;内存管理单元（Memory Management Unit, MMU）转换为物理地址。</p>
+<p>其中将虚拟地址转换为物理地址的任务叫做 地址翻译（address translation)<br><img src="/../../assets/image-20240311213442901.png"></p>
+<h2 id="9-2-地址空间"><a href="#9-2-地址空间" class="headerlink" title="9.2 地址空间"></a>9.2 地址空间</h2><p>一个地址空间的大小是由表示最大地址所需要的&#x3D;&#x3D;位数&#x3D;&#x3D;所描述的。<br>例如 n 位地址空间表示包含 $2^{n}$ 个地址</p>
+<p>规范一下后面的表示<br>物理地址大小 $M &#x3D; 2^{m}$， 虚拟地址大小 $N &#x3D; 2^{n}$, 虚拟页大小 $P &#x3D; 2^{p}$</p>
+<p>通过引入地址空间的概念，清楚地区分了&#x3D;&#x3D;数据对象&#x3D;&#x3D;（字节）和它们的&#x3D;&#x3D;属性&#x3D;&#x3D;（地址）</p>
+<blockquote>
+<p>虚拟地址是一种映射关系，程序和操作系统认为数据存储在哪个地址空间都没有关系。<br>只要能通过这个虚假的地址，找到在内存&#x2F;磁盘上真正的地址，就不会出现什么问题。</p>
+</blockquote>
+<h2 id="9-3-虚拟内存作为缓存的工具"><a href="#9-3-虚拟内存作为缓存的工具" class="headerlink" title="9.3 虚拟内存作为缓存的工具"></a>9.3 虚拟内存作为缓存的工具</h2><p>这部分讲述了：<br>虚拟内存是如何提供了一种机制，利用 DRAM（内存）缓存更大的虚拟地址空间（磁盘）的页面</p>
+<h3 id="虚拟页和物理页"><a href="#虚拟页和物理页" class="headerlink" title="虚拟页和物理页"></a>虚拟页和物理页</h3><p><img src="/../../assets/image-20240311223100697.png"></p>
+<p>虚拟内存表示的是&#x3D;&#x3D;磁盘&#x3D;&#x3D;上的 N 个连续的字节大小的单元组成的数组<br>而主存，是用来缓存磁盘中的内容的</p>
+<p><strong>缓存机制</strong>：较低层（磁盘）上的数据被分割成块，这些块再作为较低层（磁盘）和较高层（主存）之间的传输单位。</p>
+<p>虚拟内存被分割为&#x3D;&#x3D;虚拟页&#x3D;&#x3D;（Virtual Page, VP）<br>物理内存被分割成&#x3D;&#x3D;物理页&#x3D;&#x3D;（Physical Page, PP)，也称页帧（page frame）<br>其中虚拟页和物理页的大小均为 $P &#x3D; 2^{p}$ 字节</p>
+<p>虚拟页面的集合会分为三个&#x3D;&#x3D;不相交&#x3D;&#x3D;的子集</p>
+<ul>
+<li>未分配的：在磁盘上不存在数据</li>
+<li>缓存的：在磁盘上存在数据，且在物理内存中也已分配页</li>
+<li>未缓存的：在磁盘上存在数据，但不在物理内存中</li>
+</ul>
+<p>“未缓存的”页面指的是那些已经被虚拟内存系统分配，并且有相应数据存储在磁盘上，但当前这些数据不在物理内存中的页面。</p>
+<p>例如下图中<br>虚拟页 0、3 为未分配的<br>虚拟页 1、4、6 为缓存在物理内存中的<br>虚拟页 2、5、7 为未缓存的</p>
+<p><img src="/../../assets/image-20240311231534318.png"></p>
+<blockquote>
+<p>虚拟内存和物理内存要采取分块的操作，<br>一是可以将一个程序拆分成很多小块进行存储，消除外部碎片？<br>二是方便记录映射关系，只需要记录那一块对应着那一块，而不需要记录一个起始和结束位置</p>
+</blockquote>
+<h3 id="DRAM-和-SRAM"><a href="#DRAM-和-SRAM" class="headerlink" title="DRAM 和 SRAM"></a>DRAM 和 SRAM</h3><p><img src="/../../assets/image-20240311232117387.png"><br><img src="/../../assets/image-20240312101041242.png"></p>
+<p>Static Random-Access Memory – 六个晶体管组成的闭合回路<br>Dynamic Random-Access Memory – 一个电容和一个晶体管<br>SRAM 缓存：CPU 和主存之间的 L1、L2、L3 高速缓存。<br>DRAM 缓存：虚拟内存系统的缓存，它在主存中缓存虚拟页。是指虚拟内存系统利用主存（DRAM）作为缓存来存储频繁访问的磁盘数据的过程。</p>
+<p>DRAM 比 SRAM 约慢 10 倍，磁盘比 DRAM 约慢 100 000 倍<br>&#x3D;&#x3D;DRAM 缓存相比 SRAM 缓存不命中要更加昂贵&#x3D;&#x3D;<br>因为 DRAM 缓存不命中要由磁盘来服务，而 SRAM 缓存中的不命中是基于 DRAM 的主存来服务的</p>
+<p>DRAM 缓存是&#x3D;&#x3D;全相联&#x3D;&#x3D;的，即任何虚拟页都可以放置在任何的物理页中，不命中的&#x3D;&#x3D;更换策略&#x3D;&#x3D;很重要</p>
+<blockquote>
+<p>Q：这里最后说的“因为对磁盘的访问时间很长，DRAM 缓存总是使用写回，而不是直写”是什么意思？<br>A：大体是，写回和直写是两种 缓存更新策略<br>写回 – 缓存中数据改变的时候，变更不会立即写入硬盘，等被换出的时候再恒心磁盘。可以减少对磁盘读写的操作，提高效率<br>直写 - 缓存中数据改变的时候，立即也改变磁盘中对应的数据，确保数据的一致性</p>
+</blockquote>
+<h3 id="页表"><a href="#页表" class="headerlink" title="页表"></a>页表</h3><p>页表（Page Table）：将虚拟页映射成物理页，是一个页表条目（Page Table Entry, PTE）的数组</p>
+<p>PTE 中有效位（valid bit）表示这页放到了 DRAM 中</p>
+<p><img src="/../../assets/image-20240312110628167.png"></p>
+<h3 id="命中？"><a href="#命中？" class="headerlink" title="命中？"></a>命中？</h3><p>页命中：通过虚拟地址找到对应的 PTE 后，发现有效位为 1，则此页面在 DRAM 中</p>
+<p>页不命中（缺页, page fault）：<br>通过虚拟地址找到对应的 PTE 后，发现有效位为 0，则此页并没有被缓存。<br>此时将触发&#x3D;&#x3D;缺页异常&#x3D;&#x3D;，内核选择一个牺牲页，如果牺牲页被修改过，内核会将其复制回磁盘，再将需要的页复制到内存中。<br>当异常处理程序返回时，将&#x3D;&#x3D;重新启动导致缺页的指令&#x3D;&#x3D;，此时在主存中缓存了想要的地址，将顺利进行。</p>
+<blockquote>
+<p>Q：如何选择牺牲页 也有很多决策方案？</p>
+</blockquote>
+<p>在磁盘和内存之间传送页的活动叫做交换（swapping）或者页面调度（paging）。<br>页从磁盘换入（页面调入）DRAM 和从 DRAM 换出（页面调出）磁盘。</p>
+<h3 id="局部性拯救了世界！"><a href="#局部性拯救了世界！" class="headerlink" title="局部性拯救了世界！"></a>局部性拯救了世界！</h3><p>虚拟内存不命中的处罚很大，正常来讲效率会很低。<br>但是由于 &#x3D;&#x3D;时间局部性 和 空间局部性&#x3D;&#x3D; 的存在，实际情况相当的好。</p>
+<p>局部性原则保证了，程序将趋向于在一个较小的页面活动集合上工作，叫工作集</p>
+<p>一种不幸的状态 - 抖动（thrashing）：<br>当工作集的大小超出了物理内存的大小，页面将不断的在内存和磁盘之间换进换出，此时效率极低。</p>
+<h2 id="9-4-虚拟内存作为内存管理的工具"><a href="#9-4-虚拟内存作为内存管理的工具" class="headerlink" title="9.4 虚拟内存作为内存管理的工具"></a>9.4 虚拟内存作为内存管理的工具</h2><p>页表不是唯一的，os 为每个进程提供了一个独立的页表，也就是为每个进程提供了一个独立的虚拟地址空间。有趣的是，多个虚拟页面可以映射到同一个共享物理页面上 </p>
+<p><img src="/../../assets/image-20240327112126356.png"></p>
+<ul>
+<li><strong>简化链接</strong><br>独立的地址空间允许每个进程的内存映像使用&#x3D;&#x3D;相同的基本格式&#x3D;&#x3D;，根本不需要管代码和数据实际存放在物理内存的位置<br>对于 64 位地址空间，代码段总是从虚拟地址 0x400000 开始</li>
+<li><strong>简化加载</strong><br>使得更容易向内存中加载可执行文件和共享对象文件<br>加载器可以为代码和数据段分配虚拟页，之后标记为无效的（没被缓存），当真正使用的时候再调入</li>
+<li><strong>简化共享</strong><br>虚拟内存使得不同进程之间的数据共享变得简单。<br>通过&#x3D;&#x3D;映射机制&#x3D;&#x3D;，让不同进程可以轻松共享相同的物理内存页</li>
+<li><strong>简化内存分配</strong><br>malloc 分配的 k 个&#x3D;&#x3D;连续&#x3D;&#x3D;的虚拟内存页面，在物理内存中可以是&#x3D;&#x3D;分散&#x3D;&#x3D;的任意 k 个位置</li>
+</ul>
+<h2 id="9-5-虚拟内存作为内存保护工具"><a href="#9-5-虚拟内存作为内存保护工具" class="headerlink" title="9.5 虚拟内存作为内存保护工具"></a>9.5 虚拟内存作为内存保护工具</h2><p>进程的读、写、执行权限应该有明确的限制。<br>在地址翻译的过程中一定会去读 PTE 来访问物理地址，我们可以直接在 PTE 上添加一些许可位来进行权限控制！</p>
+<ul>
+<li>SUP 位表示是否需要在内核模式下才能访问</li>
+<li>READ 位表示可读</li>
+<li>WRITE 位表示可写</li>
+</ul>
+<p><img src="/../../assets/image-20240312165342044.png"></p>
+<p>如果违反了控制权限，会将控制传递给内核中的&#x3D;&#x3D;异常处理程序&#x3D;&#x3D;，报告段错误（segmentation fault）</p>
+<h2 id="9-6-地址翻译"><a href="#9-6-地址翻译" class="headerlink" title="9.6 地址翻译"></a>9.6 地址翻译</h2><h3 id="基本地址翻译"><a href="#基本地址翻译" class="headerlink" title="基本地址翻译"></a>基本地址翻译</h3><p><img src="/../../assets/image-20240312165729777.png"></p>
+<p><img src="/../../assets/image-20240312181010736.png"></p>
+<p>CPU 中有一个的&#x3D;&#x3D;页表基址寄存器&#x3D;&#x3D;（Page Table Base Register, PTBR），指向当前页表。<br>MMU 通过虚拟页号 VPN 来选择适当的页表条目 PTE， 从页表条目 PTE 中读取到对应的物理页号 PPN。<br>物理页偏移量 PPO 和虚拟页偏移量 VPO 是相同的内容。<br>将物理页号 PPN 和物理页偏移量 PPO 直接拼接得到物理地址</p>
+<blockquote>
+<p>如果物理地址没有缓存在内存中，这通常意味着两种情况之一：</p>
+<ol>
+<li><strong>地址所对应的数据已经被换出到磁盘上</strong></li>
+<li><strong>物理地址当前未被映射或分配</strong></li>
+</ol>
+</blockquote>
+<p>页面命中完全是由硬件来处理的<br>处理缺页是硬件和操作系统内核协同完成的</p>
+<p><strong>页面命中</strong><br><img src="/../../assets/image-20240312182235164.png"></p>
+<p><strong>页面未命中</strong><br><img src="/../../assets/image-20240312182247087.png"></p>
+<p><img src="/../../assets/image-20240312182253774.png"></p>
+<h3 id="TLB"><a href="#TLB" class="headerlink" title="TLB"></a>TLB</h3><p>在 MMU 中包括一个关于 PTE 的小的缓存，称为&#x3D;&#x3D;翻译后备缓冲器&#x3D;&#x3D;（Translation Lookaside Buffer, TLB)</p>
+<p><img src="/../../assets/image-20240312194511640.png"></p>
+<p>我们观察一下 这个 TLB 是如何划分 PTE 的：<br>首先 根据虚拟页表和偏移量划分为 VPN 和 VPO<br>对于 VPN 部分，&#x3D;&#x3D;因为 TLB 被分为 $T &#x3D; 2^{t}$ 个组&#x3D;&#x3D;，<br>所以 VPN 的 t 个最低位组成 TLB索引（TLBI），VPN 的剩余位组成 TLB 标记（TLBT）</p>
+<blockquote>
+<p>Q：TLB 分组的个数，是不是和实际电路上的连线有关？</p>
+</blockquote>
+<p>&#x3D;&#x3D;当 TLB 命中时的所有地址翻译步骤都是在芯片上的 MMU 中进行的，非常快&#x3D;&#x3D;</p>
+<p><img src="/../../assets/image-20240312195228509.png"></p>
+<p><img src="/../../assets/image-20240312195551756.png"></p>
+<h3 id="多级页表（时间换空间！）"><a href="#多级页表（时间换空间！）" class="headerlink" title="多级页表（时间换空间！）"></a>多级页表（时间换空间！）</h3><p>引入：如果是单独的页表，当页表中绝大部分条都是空的时候，也仍需要分配所有条目 PTE 占用的内存，这样子显得就很浪费。</p>
+<p>为什么这样能压缩页表？<br>第一：如果一级页表中的一个 PTE 是空的，那么相应的二级页表就根本不会存在<br>第二：只将一级页表和最经常用的二级页表放到内存中，就不用把所有条目都放进来了</p>
+<p><img src="/../../assets/image-20240312200346817.png"></p>
+<h3 id="一个地址翻译的实例"><a href="#一个地址翻译的实例" class="headerlink" title="一个地址翻译的实例"></a>一个地址翻译的实例</h3><p>（看书！）</p>
+<p>…</p>
+<h2 id="9-7-案例研究"><a href="#9-7-案例研究" class="headerlink" title="9.7 案例研究"></a>9.7 案例研究</h2><p>略</p>
+<h2 id="9-8-内存映射"><a href="#9-8-内存映射" class="headerlink" title="9.8 内存映射"></a>9.8 内存映射</h2><blockquote>
+<p>Q：？</p>
+</blockquote>
+<h3 id="共享对象-私有对象"><a href="#共享对象-私有对象" class="headerlink" title="共享对象 &amp; 私有对象"></a>共享对象 &amp; 私有对象</h3><p>Copy On Write 技术</p>
+<p>一个私有对象开始生命周期的方式基本和共享对象的一样，在物理内存中只保存私有对象的一份副本。<br>此时，虽然两个进程将一个私有对象映射到他们虚拟内存中，但共享这个对象同一个物理副本。<br>在两个进程中这部分虚拟地址都被标记成只读不可写（在对应 PTE 中实现）<br>这个区域结构被标记为&#x3D;&#x3D;私有的写时复制&#x3D;&#x3D;</p>
+<p>当一个进程想要进行写操作时，会触发保护故障，发现这部分被标记了私有的写时复制。<br>就会在物理内存中创建这个页面的一个新副本，更新页表条目指向这个新的副本，恢复可写权限。</p>
+<p><img src="/../../assets/image-20240327223731510.png"></p>
+<blockquote>
+<p>Q：私有的写时复制 是标记在 PTE 中吗？</p>
+</blockquote>
+<h3 id="再看-fork"><a href="#再看-fork" class="headerlink" title="再看 fork"></a>再看 <code>fork</code></h3><p>fork 创建子进程的时候，内核为子进程创建各种数据结构，分配一个 PID。<br>为了给子进程创建虚拟内存，它创建了父进程的 <code>mm_struct</code>、区域结构、和页表的&#x3D;&#x3D;原样副本&#x3D;&#x3D;</p>
+<p>再将两个进程的每个页面都标记成只读，每个区域结构都标记为私有的写时复制。</p>
+<blockquote>
+<p>Q：mm_struct 和 区域结构是什么？</p>
+</blockquote>
+<h3 id="再看-execve"><a href="#再看-execve" class="headerlink" title="再看 execve"></a>再看 <code>execve</code></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">execve(<span class="string">&quot;a.out&quot;</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>删除已存在的用户区域</li>
+<li>映射私有区域：code data bss stack …</li>
+<li>映射共享区域：链接库</li>
+<li>设置程序计数器：指向代码区域的入口点</li>
+</ul>
+<p><img src="/../../assets/image-20240327224640215.png"></p>
+<blockquote>
+<p>Q：这里的入口是不是汇编中写的那个 <code>__start__</code> ?</p>
+</blockquote>
+<h3 id="使用-mmap-函数的用户级内存映射"><a href="#使用-mmap-函数的用户级内存映射" class="headerlink" title="使用 mmap 函数的用户级内存映射"></a>使用 <code>mmap</code> 函数的用户级内存映射</h3><p><code>mmap</code> 提供了一种将文件或者设备内存映射到进程的地址空间的方法。</p>
+<p>使用 <code>mmap</code>比传统的读写文件操作（如使用 <code>read</code> 或 <code>write</code>）更高效。<br>减少数据复制，传统的 <code>read</code> 或 <code>write</code> 操作需要将数据从内核空间复制到用户空间（或反向），这个过程中会发生至少一次（通常是两次）的数据复制。<br>使用 <code>mmap</code> 映射文件到进程的地址空间后，程序可以直接在用户空间访问或修改这部分内存，操作系统会自动将对应的文件内容与这块内存同步，这样就避免了额外的数据复制。</p>
+<h2 id="9-9-动态内存分配"><a href="#9-9-动态内存分配" class="headerlink" title="9.9 动态内存分配"></a>9.9 动态内存分配</h2><blockquote>
+<p>#os&#x2F;todo </p>
+</blockquote>
+<h2 id="9-10-垃圾收集"><a href="#9-10-垃圾收集" class="headerlink" title="9.10 垃圾收集"></a>9.10 垃圾收集</h2><blockquote>
+<p>#os&#x2F;todo </p>
+</blockquote>
+<h2 id="9-11-C程序中常见的与内存有关的错误"><a href="#9-11-C程序中常见的与内存有关的错误" class="headerlink" title="9.11 C程序中常见的与内存有关的错误"></a>9.11 C程序中常见的与内存有关的错误</h2><blockquote>
+<p>#os&#x2F;todo </p>
+</blockquote>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1RK4y1R7Kf/?p=9&spm_id_from=333.337.top_right_bar_window_history.content.click&vd_source=664d223fe65c6706d11206b7416f5b92">深入理解计算机系统 - CSAPP重点导读</a></p>
+<p><a target="_blank" rel="noopener" href="https://wdxtub.com/csapp/thin-csapp-7/2016/04/16/">【读薄 CSAPP】柒 虚拟内存与动态内存分配</a></p>
+</div><div class="tags"></div><div class="post-nav"><a class="pre" href="/2024/04/03/mit-6-S081-lab/2024-04-03-%E3%80%90MIT%206.S081%E3%80%91%20Lab3-Page%20Tables(2022)/">【MIT 6.S081】 Lab3-Page Tables(2022)</a><a class="next" href="/2024/03/23/mit-6-S081-lab/2024-03-23-%E3%80%90MIT%206.S081%E3%80%91%20Lab2-System%20calls/">【MIT 6.S081】 Lab2-System calls</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://note.devilran.xyz"/></form></div><div class="widget"><div class="author-info"><a class="info-avatar" href="/about/" title="关于"><img class="nofancybox" src="/img/avatar.png"/></a><p>To be a better man.</p><a class="info-icon" href="https://twitter.com/username" title="Twitter" target="_blank" style="margin-inline:5px"> <i class="fa fa-twitter-square" style="margin-inline:5px"></i></a><a class="info-icon" href="mailto:admin@domain.com" title="Email" target="_blank" style="margin-inline:5px"> <i class="fa fa-envelope-square" style="margin-inline:5px"></i></a><a class="info-icon" href="https://github.com/username" title="Github" target="_blank" style="margin-inline:5px"> <i class="fa fa-github-square" style="margin-inline:5px"></i></a><a class="info-icon" href="/atom.xml" title="RSS" target="_blank" style="margin-inline:5px"> <i class="fa fa-rss-square" style="margin-inline:5px"></i></a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/OS/CSAPP/">CSAPP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/MIT-6-S081/">MIT 6.S081</a></li></ul></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/" style="font-size: 15px;">系统调用</a> <a href="/tags/%E9%A1%B5%E8%A1%A8/" style="font-size: 15px;">页表</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2024/07/17/hello-world/">Hello World</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/04/03/mit-6-S081-lab/2024-04-03-%E3%80%90MIT%206.S081%E3%80%91%20Lab3-Page%20Tables(2022)/">【MIT 6.S081】 Lab3-Page Tables(2022)</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/03/27/csapp/2024-03-11-%E3%80%90CSAPP%E3%80%91%20ch9-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/">【CSAPP】 ch9-虚拟内存</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/03/23/mit-6-S081-lab/2024-03-23-%E3%80%90MIT%206.S081%E3%80%91%20Lab2-System%20calls/">【MIT 6.S081】 Lab2-System calls</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/03/07/mit-6-S081-lab/2024-03-07-%E3%80%90MIT%206.S081%E3%80%91%20Lab1-Xv6%20and%20Unix%20utilities/">【MIT 6.S081】 Lab1-Xv6 and Unix utilities</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2024 <a href="/." rel="nofollow">Devil.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="https://unpkg.com/@fancyapps/fancybox/dist/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.0.0" async></script><link rel="stylesheet" type="text/css" href="https://unpkg.com/@fancyapps/fancybox/dist/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js?v=1.0.0" successtext="复制成功！"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css?v=1.0.0"><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>
